@@ -1,0 +1,13 @@
+integration_tests:
+  outputs:
+    dev:
+      account: ig08392.ap-southeast-1
+      database: GOVERNANCE
+      password: Vicky@2306
+      role: ACCOUNTADMIN
+      schema: elementary
+      threads: 4
+      type: snowflake
+      user: vigneshj
+      warehouse: USER_ENGINEER_WAREHOUSE
+  target: dev

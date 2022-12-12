@@ -5,7 +5,7 @@
 {%- endmacro -%}
 
 {% macro data_profiling(target_database, target_schema, exclude_tables, include_tables, destination_database, destination_schema, destination_table) -%}
-  {{ return(adapter.dispatch('dbt_profiling_tabular.data_profiling')(target_database, target_schema, exclude_tables, include_tables, destination_database, destination_schema, destination_table)) }}
+  {{ return(adapter.dispatch('data_profiling','dbt_profiling_tabular')(target_database, target_schema, exclude_tables, include_tables, destination_database, destination_schema, destination_table)) }}
 {%- endmacro %}
 
 {% macro snowflake__data_profiling(target_database, target_schema, exclude_tables, include_tables, destination_database, destination_schema, destination_table) %}

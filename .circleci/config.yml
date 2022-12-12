@@ -1,0 +1,35 @@
+
+version: 2.1
+
+jobs:
+  integration-snowflake:
+    docker:
+      - image: cimg/python:3.9
+
+    resource_class: small
+
+    environment:
+      DBT_PROFILES_DIR: ./
+
+    working_directory: ~/repo/integration_tests
+
+    steps:
+      - checkout:
+          path: ~/repo
+
+      - run: pip install --pre dbt-snowflake -r dev-requirements.txt
+      - run:
+          name: "Run OG Tests - Snowflake"
+          command: ./run_test.sh snowflake
+      - store_artifacts:
+          path: integration_tests/logs          
+      - store_artifacts:
+          path: integration_tests/target
+
+workflows:
+  version: 2
+  continuous-integration:
+    jobs:
+      - integration-snowflake:
+          requires:
+            - approve

@@ -30,6 +30,4 @@ workflows:
   version: 2
   continuous-integration:
     jobs:
-      - integration-snowflake:
-          requires:
-            - approve
+      - integration-snowflake

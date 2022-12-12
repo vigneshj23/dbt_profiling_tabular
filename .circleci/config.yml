@@ -8,15 +8,8 @@ jobs:
 
     resource_class: small
 
-    environment:
-      DBT_PROFILES_DIR: ./
-
-    working_directory: ~/repo/integration_tests
-
     steps:
-      - checkout:
-          path: ~/repo
-
+      - checkout
       - run: pip install --pre dbt-snowflake -r dev-requirements.txt
       - run:
           name: "Run OG Tests - Snowflake"

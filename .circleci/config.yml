@@ -11,9 +11,9 @@ jobs:
     steps:
       - checkout
       - run: pip install --pre dbt-snowflake -r dev-requirements.txt
+      - run: chmod u+r+x run_tests.sh
       - run:
           name: "Run OG Tests - Snowflake"
-          command: chmod u+r+x run_tests.sh
           command: ./run_test.sh
       - store_artifacts:
           path: integration_tests/logs          

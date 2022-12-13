@@ -9,9 +9,8 @@ export SNOWFLAKE_WAREHOUSE="USER_ENGINEER_WAREHOUSE"
 
 mv profiles.yml template.yml
 rm -f profiles.yml temp.yml
-( echo "cat << >profiles.yml";
+( echo "cat <<EOF >>profiles.yml";
   cat template.yml;
-
 ) >temp.yml
 . temp.yml
 cat profiles.yml

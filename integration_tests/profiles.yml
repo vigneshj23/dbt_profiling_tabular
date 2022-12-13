@@ -1,13 +1,13 @@
 integration_tests:
   outputs:
     dev:
-      account: ig08392.ap-southeast-1
-      database: GOVERNANCE
-      password: Vicky@2306
-      role: ACCOUNTADMIN
-      schema: elementary
+      account: ${SNOWFLAKE_ACCOUNT}
+      database: ${SNOWFLAKE_DATABASE}
+      password: ${SNOWFLAKE_PASSWORD}
+      role: ${SNOWFLAKE_ROLE}
+      schema: ${SNOWFLAKE_SCHEMA}
       threads: 4
       type: snowflake
-      user: vigneshj
-      warehouse: USER_ENGINEER_WAREHOUSE
+      user: ${SNOWFLAKE_USER}
+      warehouse: ${SNOWFLAKE_WAREHOUSE}
   target: dev

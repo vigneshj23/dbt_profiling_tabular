@@ -5,6 +5,8 @@ echo $(which dbt)
 # Show version and installed adapters
 dbt --version
 
+export ENV_VAR_NAME=env_var_value
+
 # Set the profile
 cd integration_tests
 cp ./profiles.yml profiles.yml

@@ -14,7 +14,7 @@ jobs:
       - run: chmod +x run_test.sh
       - run:
           name: "Run OG Tests - Snowflake"
-          command: ./run_test.sh
+          command: source '.env' && bash 'run_test.sh'
       - store_artifacts:
           path: integration_tests/logs          
       - store_artifacts:

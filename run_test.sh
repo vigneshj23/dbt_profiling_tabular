@@ -8,7 +8,7 @@ dbt --version
 
 # Set the profile
 cd integration_tests
-./env
+./bashrc
 cp ./profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 

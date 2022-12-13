@@ -4,7 +4,7 @@ echo $(which dbt)
 
 # Show version and installed adapters
 dbt --version
-. ./snowflake.env
+
 # Set the profile
 cd integration_tests
 cp ./profiles.yml profiles.yml

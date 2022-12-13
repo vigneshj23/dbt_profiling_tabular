@@ -10,6 +10,13 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: "Setup dbt"
+          command: | 
+            set -x
+            python -m venv dbt_venv
+            . dbt_venv/bin/activate
+
       - run: pip install --pre dbt-snowflake -r dev-requirements.txt
       - run: /.bashrc
       - run: chmod +x run_test.sh

@@ -7,11 +7,11 @@ export SNOWFLAKE_SCHEMA="elementary"
 export SNOWFLAKE_WAREHOUSE="USER_ENGINEER_WAREHOUSE"
 
 
-mv profile.yml template.yml
-rm -f profile.yml temp.yml
-( echo "cat <<EOF >profile.yml";
+mv profiles.yml template.yml
+rm -f profiles.yml temp.yml
+( echo "cat <<EOF >profiles.yml";
   cat template.yml;
   echo "EOF";
 ) >temp.yml
 . temp.yml
-cat profile.yml
+cat profiles.yml

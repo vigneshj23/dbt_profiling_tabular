@@ -5,4 +5,13 @@ export SNOWFLAKE_ROLE="ACCOUNTADMIN"
 export SNOWFLAKE_DATABASE="GOVERNANCE"
 export SNOWFLAKE_SCHEMA="elementary"
 export SNOWFLAKE_WAREHOUSE="USER_ENGINEER_WAREHOUSE"
-echo ${SNOWFLAKE_ACCOUNT} 
+
+
+mv profile.yml template.yml
+rm -f profile.yml temp.yml
+( echo "cat <<EOF >profile.yml";
+  cat template.yml;
+  echo "EOF";
+) >temp.yml
+. temp.yml
+cat profile.yml

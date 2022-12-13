@@ -7,6 +7,8 @@ dbt --version
 
 # Set the profile
 cd integration_tests
+chmod +x value.sh
+./value.sh
 export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection

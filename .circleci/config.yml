@@ -15,7 +15,6 @@ jobs:
           name: permission given
           command: |
             chmod +x run_test.sh
-      - run: source ./.bashrc
       - run:
           name: "Run OG Tests - Snowflake"
           command: ./run_test.sh

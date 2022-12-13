@@ -17,7 +17,6 @@ jobs:
             chmod +x run_test.sh
             chmod +x value.sh
       - run: ./value.sh
-      - run: echo ${SNOWFLAKE_ACCOUNT}
       - run:
           name: "Run OG Tests - Snowflake"
           command: ./run_test.sh

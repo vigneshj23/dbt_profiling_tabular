@@ -1,6 +1,5 @@
 #snowflake credentials
 export SNOWFLAKE_ACCOUNT="ig08392.ap-southeast-1"
-done < <(sed -nr '/SNOWFLAKE_ACCOUNT:/,$ s/  ([A-Z_]+): (.*)/\1=\2/ p' profiles.yml)
 export SNOWFLAKE_USER="vigneshj"
 export SNOWFLAKE_PASSWORD="Vicky@2306"
 export SNOWFLAKE_ROLE="ACCOUNTADMIN"

@@ -1,4 +1,9 @@
+config:
+    send_anonymous_usage_stats: False
+    use_colors: True
+
 integration_tests:
+  
   outputs:
     snowflake:
       account: ${SNOWFLAKE_ACCOUNT}
@@ -10,4 +15,4 @@ integration_tests:
       type: snowflake
       user: ${SNOWFLAKE_USER}
       warehouse: ${SNOWFLAKE_WAREHOUSE}
-    target: snowflake
+  target: snowflake

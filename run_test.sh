@@ -7,10 +7,6 @@ dbt --version
 
 # Set the profile
 cd integration_tests
-chmod +x value.sh
-./value.sh
-echo ${SNOWFLAKE_ACCOUNT}
-cp ./profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection

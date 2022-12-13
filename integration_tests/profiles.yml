@@ -10,3 +10,4 @@ integration_tests:
       type: snowflake
       user: ${SNOWFLAKE_USER}
       warehouse: ${SNOWFLAKE_WAREHOUSE}
+    target: snowflake

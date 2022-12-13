@@ -11,4 +11,4 @@ export SNOWFLAKE_WAREHOUSE="USER_ENGINEER_WAREHOUSE"
   echo "EOF";
 ) > profiles.yml
 . profiles.yml
-cat profiles.yml
+cat final.yml

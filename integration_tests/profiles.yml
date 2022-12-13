@@ -1,13 +1,13 @@
 integration_tests:
   outputs:
     snowflake:
-      account: {{ env_var('SNOWFLAKE_ACCOUNT')}}
-      database: {{ env_var('SNOWFLAKE_DATABASE')}}
-      password: {{ env_var('SNOWFLAKE_PASSWORD')}}
-      role: {{ env_var('SNOWFLAKE_ROLE')}}
-      schema: {{ env_var('SNOWFLAKE_SCHEMA')}}
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT')}}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE')}}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD')}}"
+      role: "{{ env_var('SNOWFLAKE_ROLE')}}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA')}}"
       threads: 4
       type: snowflake
-      user: {{ env_var('SNOWFLAKE_USER')}}
-      warehouse: {{ env_var('SNOWFLAKE_WAREHOUSE')}}
+      user: "{{ env_var('SNOWFLAKE_USER')}}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE')}}"
   target: snowflake

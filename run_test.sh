@@ -5,10 +5,8 @@ echo $(which dbt)
 # Show version and installed adapters
 dbt --version
 
-
 # Set the profile
 cd integration_tests
-./bashrc
 cp ./profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 

@@ -1,6 +1,6 @@
 integration_tests:
   outputs:
-    dev:
+    snowflake:
       account: ${SNOWFLAKE_ACCOUNT}
       database: ${SNOWFLAKE_DATABASE}
       password: ${SNOWFLAKE_PASSWORD}
@@ -10,4 +10,3 @@ integration_tests:
       type: snowflake
       user: ${SNOWFLAKE_USER}
       warehouse: ${SNOWFLAKE_WAREHOUSE}
-  target: dev

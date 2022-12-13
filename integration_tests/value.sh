@@ -6,10 +6,8 @@ export SNOWFLAKE_DATABASE="GOVERNANCE"
 export SNOWFLAKE_SCHEMA="elementary"
 export SNOWFLAKE_WAREHOUSE="USER_ENGINEER_WAREHOUSE"
 
-rm -f final.yml temp.yml
 ( echo "cat <<EOF >final.yml";
   cat profiles.yml;
-  echo "EOF";
-) >temp.yml
-. temp.yml
-cat final.yml
+) > profiles.yml
+. profiles.yml
+cat profiles.yml

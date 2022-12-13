@@ -1,7 +1,7 @@
 integration_tests:
   outputs:
     snowflake:
-      account: $SNOWFLAKE_ACCOUNT
+      account: ${SNOWFLAKE_ACCOUNT}
       database: ${SNOWFLAKE_DATABASE}
       password: ${SNOWFLAKE_PASSWORD}
       role: ${SNOWFLAKE_ROLE}

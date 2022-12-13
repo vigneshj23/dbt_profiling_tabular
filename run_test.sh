@@ -9,6 +9,7 @@ dbt --version
 cd integration_tests
 chmod +x value.sh
 ./value.sh
+echo ${SNOWFLAKE_ACCOUNT}
 cp ./profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 

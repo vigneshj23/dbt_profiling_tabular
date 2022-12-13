@@ -5,10 +5,3 @@ export SNOWFLAKE_ROLE="ACCOUNTADMIN"
 export SNOWFLAKE_DATABASE="GOVERNANCE"
 export SNOWFLAKE_SCHEMA="elementary"
 export SNOWFLAKE_WAREHOUSE="USER_ENGINEER_WAREHOUSE"
-
-( echo "cat <<EOF >final.yml";
-  cat profiles.yml;
-  echo "EOF";
-) > profiles.yml
-. profiles.yml
-cat final.yml

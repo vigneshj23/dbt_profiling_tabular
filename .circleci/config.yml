@@ -14,7 +14,7 @@ jobs:
       - run: 
           name: permission given
           command: |
-            chmod +x run_test.sh
+            chmod u+x run_test.sh
       - run:
           name: "Run OG Tests - Snowflake"
           command: ./run_test.sh snowflake

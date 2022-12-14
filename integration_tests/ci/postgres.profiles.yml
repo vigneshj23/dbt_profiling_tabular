@@ -2,11 +2,9 @@ integration_tests:
   outputs:
     postgres:
         type: postgres
-        host: localhost
-        user: postgres
-        password: jman
-        port: 5434
-        dbname: test_profiling
-        schema: profiling
+        host: ${POSTGRES_HOST}
+        user: 
+        password:
+        port:
         threads: 4
   target: postgres

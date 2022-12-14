@@ -11,8 +11,7 @@ integration_tests:
       user: ${SNOWFLAKE_USER}
       warehouse: ${SNOWFLAKE_WAREHOUSE}
   target: snowflake
-
-  outputs:
+  
     postgres:
         type: postgres
         host: localhost

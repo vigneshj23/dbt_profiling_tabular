@@ -1,4 +1,3 @@
-
 # Show location of local install of dbt
 echo $(which dbt)
 

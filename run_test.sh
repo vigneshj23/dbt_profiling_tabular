@@ -9,10 +9,10 @@ dbt --version
 # Set the profile
 cd integration_tests
 export $(cat .env | xargs) && rails c
-mv profiles.yml template.yml
+# mv profiles.yml template.yml
 rm -f profiles.yml temp.yml
 ( echo "cat <<EOF >>profiles.yml";
-  cat template.yml;
+  cat ci/$1.profiles.yml;
 ) >temp.yml
 . temp.yml
 cat profiles.yml

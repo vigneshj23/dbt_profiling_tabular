@@ -11,3 +11,15 @@ integration_tests:
       user: ${SNOWFLAKE_USER}
       warehouse: ${SNOWFLAKE_WAREHOUSE}
   target: snowflake
+
+  outputs:
+    postgres:
+        type: postgres
+        host: localhost
+        user: postgres
+        password: jman
+        port: 5434
+        dbname: test_profiling
+        schema: profiling
+        threads: 4
+  target: postgres

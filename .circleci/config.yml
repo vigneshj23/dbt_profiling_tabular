@@ -5,6 +5,7 @@ jobs:
   integration-snowflake:
     docker:
       - image: cimg/python:3.9
+      - image: cimg/postgres:14.0
 
     resource_class: small
 

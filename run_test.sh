@@ -18,9 +18,9 @@ cat profiles.yml
 export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection
-dbt debug
+dbt debug --target $0
 
-dbt deps 
-dbt seed --full-refresh
-dbt run
-dbt test
+dbt deps --target $0
+dbt seed --target $0 --full-refresh
+dbt run --target $0
+dbt test --target $0

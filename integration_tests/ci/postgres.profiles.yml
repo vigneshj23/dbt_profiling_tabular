@@ -7,5 +7,6 @@ integration_tests:
         password: ${POSTGRES_PASSWORD}
         port: ${POSTGRES_PORT}
         database: ${POSTGRES_DATABASE}
+        schema: ${POSTGRES_SCHEMA}
         threads: 4
   target: postgres

@@ -12,6 +12,7 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_SCHEMA: test
     resource_class: small
 
     steps:

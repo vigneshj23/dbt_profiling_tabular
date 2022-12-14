@@ -1,5 +1,4 @@
 integration_tests:
-  target: snowflake
   outputs:
     snowflake:
       account: ${SNOWFLAKE_ACCOUNT}
@@ -11,9 +10,9 @@ integration_tests:
       type: snowflake
       user: ${SNOWFLAKE_USER}
       warehouse: ${SNOWFLAKE_WAREHOUSE}
+  target: snowflake
 
 integration_tests:
-  target: postgres
   outputs:
     postgres:
         type: postgres
@@ -24,3 +23,4 @@ integration_tests:
         dbname: test_profiling
         schema: profiling
         threads: 4
+  target: postgres

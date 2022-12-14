@@ -1,6 +1,7 @@
 
 # Show location of local install of dbt
 echo $(which dbt)
+echo $0
 
 # Show version and installed adapters
 dbt --version

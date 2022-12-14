@@ -6,5 +6,6 @@ integration_tests:
         user: ${POSTGRES_USER}
         password: ${POSTGRES_PASSWORD}
         port: ${POSTGRES_PORT}
+        database: ${POSTGRES_DATABASE}
         threads: 4
   target: postgres

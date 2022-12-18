@@ -2,7 +2,7 @@
 
 {% if (flags.WHICH).upper() == 'RUN' %}
 
-    {% set profiled_at = create_query(destination_database, destination_schema, destination_table) %}
+    {% set profiled_at = dbt_profiling_tabular.create_query(destination_database, destination_schema, destination_table) %}
 
     -- Read the table names from information schema for that particular layer
     {% set read_information_schema_datas %}
@@ -55,7 +55,7 @@
                         INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
                         (
                         {% for chunk_column in chunk_columns %}
-                            {{ do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
+                            {{ dbt_profiling_tabular.do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
                             {% if not loop.last %} UNION ALL {% endif %}
                         {% endfor %}
                         )
@@ -70,7 +70,7 @@
                 INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
                 (
                 {% for chunk_column in chunk_columns %}
-                    {{ do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
+                    {{ dbt_profiling_tabular.do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
                     {% if not loop.last %} UNION ALL {% endif %}
                 {% endfor %}
                 )

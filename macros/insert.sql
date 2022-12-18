@@ -30,17 +30,17 @@
         , COUNT(DISTINCT {{ chunk_column[0] }})	                                                        AS distinct_count
         , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100,2)                AS distinct_count_percentage
         , COUNT(DISTINCT {{ chunk_column[0] }})=CAST(COUNT(*) AS NUMERIC)                               AS IS_UNIQUE
-        , {% if snowflake.is_numeric_dtype((chunk_column[1]).lower()) or snowflake.is_date_or_time_dtype((chunk_column[1]).lower()) %}
+        , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) or dbt_profiling_tabular.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MIN({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
         {% else %}
             NULL
         {% endif %}                                                                                     AS min
-        , {% if snowflake.is_numeric_dtype((chunk_column[1]).lower()) or snowflake.is_date_or_time_dtype((chunk_column[1]).lower()) %}
+        , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) or dbt_profiling_tabular.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MAX({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
         {% else %}
             NULL
         {% endif %}                                                                                     AS max
-        , {% if snowflake.is_numeric_dtype((chunk_column[1]).lower()) %}
+        , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) %}
             ROUND(AVG({{ adapter.quote(chunk_column[0]) }}), 2)
         {% else %}
             CAST(NULL AS NUMERIC)

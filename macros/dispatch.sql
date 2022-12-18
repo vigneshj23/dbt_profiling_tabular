@@ -1,5 +1,5 @@
 {% macro create_query(destination_database,destination_schema,destination_table) -%}
-  {{ return(adapter.dispatch('create_query','snowflake')(destination_database,destination_schema,destination_table)) }}
+  {{ return(adapter.dispatch('create_query','dbt_profiling_tabular')(destination_database,destination_schema,destination_table)) }}
 {%- endmacro %}
 
 

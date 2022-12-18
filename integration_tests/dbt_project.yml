@@ -15,5 +15,6 @@ clean-targets:
     - "target"
     - "dbt_modules"
 
-seeds:
-  +quote_columns: false
+models:
+  integration_tests:
+    materialized: table

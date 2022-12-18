@@ -16,5 +16,4 @@ clean-targets:
     - "dbt_modules"
 
 models:
-  integration_tests:
-    materialized: table
+  materialized: table

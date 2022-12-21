@@ -1,12 +1,7 @@
-FROM python:3.9
-RUN apt-get update \
-  && apt-get install -y postgresql postgresql-contrib \
-  && apt-get install sudo \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN apt-get update && apt-get install -y python
+FROM cimg/postgres:9.6
+ENV POSTGRES_USER=root
+ENV POSTGRES_DB=profiling_test
 COPY  . .
+RUN apt-get update && apt-get install -y python3-pip
 RUN pip install -r ./requirements.txt
-RUN cd integration_tests
-ADD postgres.env ./env/postgres.env
-RUN export $(cat ./env/postgres.env | xargs) && rails c
+RUN ./run_test.sh postgres

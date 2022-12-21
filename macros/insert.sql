@@ -45,7 +45,7 @@
         {% else %}
             CAST(NULL AS NUMERIC)
         {% endif %}                                                                                     AS avg
-        , '{{current_date_and_time}}'                                                                     AS profiled_at
+        , CAST('{{current_date_and_time}}' AS timestamp)                                                              AS profiled_at
         FROM {{ source_table_name }}
 {% endmacro %}
 

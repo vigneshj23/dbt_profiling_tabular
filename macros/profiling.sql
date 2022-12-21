@@ -1,5 +1,18 @@
 {% macro data_profiling(target_database, target_schema, exclude_tables, include_tables, destination_database, destination_schema, destination_table) %}
-
+ 
+ {% if target_database == '' %}
+        {{exceptions.raise_compiler_error("Config the valid `target_database`  ")}}
+    {% elif target_schema == [] %}
+        {{exceptions.raise_compiler_error("Config the valid `target_schema`  ")}}
+    {% elif destination_database == '' %}
+        {{exceptions.raise_compiler_error("Config the valid `destination_database`  " )}}
+    {% elif destination_schema == '' %}
+        {{exceptions.raise_compiler_error("Config the valid `destination_schema`  " )}}
+    {% elif destination_table == '' %}
+        {{exceptions.raise_compiler_error("Config the valid `destination_table`  ")}}
+    {% else %}
+    {% endif %}
+    
 {% if (flags.WHICH).upper() == 'RUN' %}
 
     {% set profiled_at = dbt_profiling_tabular.create_query(destination_database, destination_schema, destination_table) %}

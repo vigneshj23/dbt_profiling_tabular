@@ -1,4 +1,4 @@
-{% macro data_profiling(target_database, target_schema, exclude_tables, include_tables, destination_database, destination_schema, destination_table) %}
+{% macro data_profiling(target_database, target_schema, exclude_tables, include_tables, exclude_columns, destination_database, destination_schema, destination_table) %}
  
  {% if target_database == '' %}
         {{exceptions.raise_compiler_error("Config the valid `target_database`  ")}}
@@ -55,7 +55,19 @@
     {% for information_schema_data in information_schema_datas %}
         {% set source_table_name = information_schema_data[0] + '.' + information_schema_data[1] + '.' + information_schema_data[2] %}
         {% set column_query %}
-            SELECT column_name,data_type FROM {{target_database}}.information_schema.columns WHERE table_name = '{{information_schema_data[2]}}' and table_schema = '{{information_schema_data[1]}}' and table_catalog = '{{information_schema_data[0]}}'
+            SELECT 
+                column_name
+                , data_type 
+            FROM {{target_database}}.information_schema.columns 
+            WHERE table_name = '{{information_schema_data[2]}}' 
+                and table_schema = '{{information_schema_data[1]}}' 
+                and table_catalog = '{{information_schema_data[0]}}'
+            {% if exclude_columns | length != 0 %}
+                AND lower(table_name) IN ( {%- for exclude_column in exclude_columns -%}
+                                        '{{ exclude_column.lower() }}'
+                                        {%- if not loop.last -%} , {% endif -%}
+                                    {%- endfor -%} )
+            {% endif %}
         {% endset %}
         {% if execute %}
             {% set source_columns = run_query(column_query)| list %}

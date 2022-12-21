@@ -1,6 +1,6 @@
-CUSTOMER_ID,STREET,CITY,PINCODE,PHONE_NUMBER
-1,1st street,city1,100001,5553334444
-2,2nd street,city1,100001,6667778888
-3,,,,9991112222
-4,6th north street,city2,200001,
-5,,city3,500003,
+CUSTOMER_ID,STREET,CITY,PINCODE
+1,1st street,city1,100001
+2,2nd street,city1,100001
+3,,,
+4,6th north street,city2,200001
+5,,city3,500003

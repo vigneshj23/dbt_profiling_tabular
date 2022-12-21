@@ -43,6 +43,7 @@ packages:
 ## Supported adapters
 
 ✅ Snowflake
+✅ Postgres
 
 # Macros
 

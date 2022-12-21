@@ -1,4 +1,4 @@
-name: "dbt_profiler_integration_tests"
+name: "integration_tests"
 version: "0.1.0"
 config-version: 2
 
@@ -17,3 +17,10 @@ clean-targets:
 
 models:
   materialized: table
+
+seeds:
+  integration_tests:
+    customer_test_data:
+      schema: customer_detail
+    order_test_data:
+      schema: order_detail

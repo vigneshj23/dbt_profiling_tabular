@@ -1,1 +1,0 @@
-{{ dbt_profiling_tabular.data_profiling('RAW',['SALES','CUSTOMER'],[],[],'RAW','profiling','data_profile_table')}}

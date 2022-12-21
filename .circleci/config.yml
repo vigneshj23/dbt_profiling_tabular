@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - checkout
-      - run: pip install --pre dbt-snowflake -r dev-requirements.txt
+      - run: pip install --pre dbt-snowflake -r requirements.txt
       - run: 
           name: permission given
           command: |

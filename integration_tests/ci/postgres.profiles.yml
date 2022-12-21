@@ -8,5 +8,5 @@ integration_tests:
         port: ${POSTGRES_PORT}
         database: ${POSTGRES_DATABASE}
         schema: ${POSTGRES_SCHEMA}
-        threads: 4
+        threads: 1
   target: postgres

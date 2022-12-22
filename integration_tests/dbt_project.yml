@@ -21,6 +21,6 @@ models:
 seeds:
   integration_tests:
       customer_test_data:
-        schema: customer_detail
+        +schema: customer_detail
       order_test_data:
-        schema: order_detail
+        +schema: order_detail

@@ -1,4 +1,4 @@
-{% macro variable_validator(target_database, target_schema, destination_database, destination_schema, destination_table, exclude_tables, include_tables, exclude_columns) %}
+{% macro variable_validator(target_database, target_schema, destination_database, destination_schema, destination_table, exclude_tables, include_tables) %}
     
     -- target database validation
     {% if target_database == '' %}
@@ -45,9 +45,5 @@
         {{exceptions.raise_compiler_error(" `include_tables` should not be a string ")}}
     {% endif %}
 
-    -- exclued columns validation
-    {% if '[' not in exclude_columns | string %}
-        {{exceptions.raise_compiler_error(" `exclude_columns` should not be a string ")}}
-    {% endif %}
-
+    
 {%- endmacro %}

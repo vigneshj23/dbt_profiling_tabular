@@ -63,7 +63,7 @@
                 and table_schema = '{{information_schema_data[1]}}' 
                 and table_catalog = '{{information_schema_data[0]}}'
             {% if exclude_columns | length != 0 %}
-                AND lower(table_name) IN ( {%- for exclude_column in exclude_columns -%}
+                AND lower(column_name) NOT IN ( {%- for exclude_column in exclude_columns -%}
                                         '{{ exclude_column.lower() }}'
                                         {%- if not loop.last -%} , {% endif -%}
                                     {%- endfor -%} )

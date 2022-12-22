@@ -26,12 +26,12 @@
         FROM {{target_database}}.INFORMATION_SCHEMA.TABLES
         WHERE
             lower(table_schema) IN ( {%- for profiling_schema in target_schema -%}
-                                    '{{ profiling_schema.lower()}}','{{target.schema}}.{{ profiling_schema.lower()}}'
+                                    '{{ profiling_schema.lower()}}'
                                     {%- if not loop.last -%} , {% endif -%}
                                 {%- endfor -%} )
             {% if exclude_tables | length != 0 %}
                 AND lower(table_name) NOT IN ( {%- for exclude_table in exclude_tables -%}
-                                        '{{ exclude_table.lower() }}','{{target.schema}}.{{ profiling_schema.lower()}}'
+                                        '{{ exclude_table.lower() }}'
                                         {%- if not loop.last -%} , {% endif -%}
                                     {%- endfor -%} )
             

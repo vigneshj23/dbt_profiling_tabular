@@ -61,7 +61,7 @@
 
                 {% if (chunk_columns | length) == 100 %}
 
-                    {{ dbt_profiling_tabular.insert_statement(destination_database, destination_schema, destination_table, information_schema_data, source_table_name, chunk_column, profiled_at) }}
+                    {{ dbt_profiling_tabular.insert_statement(destination_database, destination_schema, destination_table, information_schema_data, source_table_name, chunk_columns, profiled_at) }}
 
                 {% endif %}
 
@@ -69,7 +69,7 @@
 
             {% if (chunk_columns | length) != 0 %}
 
-                {{ dbt_profiling_tabular.insert_statement(destination_database, destination_schema, destination_table, information_schema_data, source_table_name, chunk_column, profiled_at) }}
+                {{ dbt_profiling_tabular.insert_statement(destination_database, destination_schema, destination_table, information_schema_data, source_table_name, chunk_columns, profiled_at) }}
 
             {% endif %}
 
@@ -84,7 +84,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Macro is used to insert the profiled values in table
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro insert_statement(destination_database,destination_schema, destination_table, information_schema_data, source_table_name, chunk_column, profiled_at) %}
+{% macro insert_statement(destination_database,destination_schema, destination_table, information_schema_data, source_table_name, chunk_columns, profiled_at) %}
     
     {% set insert_rows %}
         INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} (
@@ -96,7 +96,12 @@
             {% endfor %} )
     {% endset %}
 
-    {% do run_query(insert_rows) %}
+    {% if excute %}
+
+        {% do run_query(insert_rows) %}
+
+    {% endif %}
+    
     {% do chunk_columns.clear()  %}
 
 {% endmacro %}

@@ -17,14 +17,17 @@
         SELECT CAST(CONVERT_TIMEZONE('UTC', CURRENT_TIMESTAMP()) AS TIMESTAMP_NTZ) AS utc_time_zone
     {% endset %}
 
-    {% set profiled_at = run_query(get_current_timestamp).columns[0].values()[0] %}
+    {% if excute %}
+        {% set profiled_at = run_query(get_current_timestamp).columns[0].values()[0] %}
+    {% endif %}
 
     {% set create_schema %}
         CREATE SCHEMA IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}
     {% endset %}
     
-    {% do run_query(create_schema) %}
-    
+    {% if excute %}
+        {% do run_query(create_schema) %}
+    {% endif %}
     {% set create_table %}
         CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} (
 
@@ -49,8 +52,9 @@
         )
     {% endset %}
 
-    {% do run_query(create_table) %}
-    
+    {% if excute %}
+        {% do run_query(create_table) %}
+    {% endif %}
     {{ return(profiled_at) }}
 
 {% endmacro %}
@@ -66,13 +70,17 @@
         SELECT CAST(NOW() AT TIME ZONE 'UTC'AS TIMESTAMPTZ) AS UTC_TIME_ZONE
     {% endset %}
     
-    {% set profiled_at = run_query(get_current_timestamp).columns[0].values()[0] %}
+    {% if excute %}
+        {% set profiled_at = run_query(get_current_timestamp).columns[0].values()[0] %}
+    {% endif %}
 
     {% set create_schema %}
         CREATE SCHEMA IF NOT EXISTS {{ destination_schema }}
     {% endset %}
 
-    {% do run_query(create_schema) %}
+    {% if excute %}
+        {% do run_query(create_schema) %}
+    {% endif %}
 
     {% set create_table %}
         CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} (
@@ -98,8 +106,9 @@
         )
     {% endset %}
 
-    {% do run_query(create_table) %}
-
+    {% if excute %}
+        {% do run_query(create_table) %}
+    {% endif %}
     {{ return(profiled_at) }}
 
 {% endmacro %}

@@ -13,8 +13,9 @@
         FROM {{ source_table_name }}
     {% endset%}
 
-    {% set null_count = run_query(null_count_query).columns[0].values()[0] %}
-
+    {% if excute %}
+        {% set null_count = run_query(null_count_query).columns[0].values()[0] %}
+    {% endif %}
     SELECT
 
           '{{ information_schema_data[0] }}'                                                              AS database

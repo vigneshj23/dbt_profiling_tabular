@@ -1,4 +1,4 @@
-CUSTOMER_ID,STREET,CITY,PINCODE
+customer_id,street,city,pincode
 1,1st street,city1,100001
 2,2nd street,city1,100001
 3,,,

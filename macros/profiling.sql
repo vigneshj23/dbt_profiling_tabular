@@ -65,31 +65,13 @@
         {% for source_column in source_columns %}
                 {% do chunk_columns.append(source_column) %}
                 {% if (chunk_columns | length) == 100 %}
-                    {% set insert_rows %}
-                        INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
-                        (
-                        {% for chunk_column in chunk_columns %}
-                            {{ dbt_profiling_tabular.do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
-                            {% if not loop.last %} UNION ALL {% endif %}
-                        {% endfor %}
-                        )
-                    {% endset %}
-                    {% do run_query(insert_rows) %}
+                    {{ dbt_profiling_tabular.insert_statement(destination_database,destination_schema,destination_table,information_schema_data,source_table_name,chunk_column,profiled_at) }}
                     {% do chunk_columns.clear() %}
                 {% endif %}
         {% endfor %}
 
         {% if (chunk_columns | length) != 0 %}
-            {% set insert_rows %}
-                INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
-                (
-                {% for chunk_column in chunk_columns %}
-                    {{ dbt_profiling_tabular.do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
-                    {% if not loop.last %} UNION ALL {% endif %}
-                {% endfor %}
-                )
-            {% endset %}
-            {% do run_query(insert_rows) %}
+            {{ dbt_profiling_tabular.insert_statement(destination_database,destination_schema,destination_table,information_schema_data,source_table_name,chunk_column,profiled_at) }}
             {% do chunk_columns.clear() %}
         {% endif %}
     {% endfor %}
@@ -99,4 +81,17 @@
 
 SELECT  'TEMP_STORAGE' AS temp_column
 
+{% endmacro %}
+
+{% macro insert_statement(destination_database,destination_schema,destination_table,information_schema_data,source_table_name,chunk_column,profiled_at) %}
+    {% set insert_rows %}
+        INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
+        (
+        {% for chunk_column in chunk_columns %}
+            {{ dbt_profiling_tabular.do_data_profiling(information_schema_data,source_table_name,chunk_column,profiled_at) }}
+            {% if not loop.last %} UNION ALL {% endif %}
+        {% endfor %}
+        )
+    {% endset %}
+    {% do run_query(insert_rows) %}
 {% endmacro %}

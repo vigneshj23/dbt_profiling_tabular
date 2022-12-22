@@ -41,7 +41,7 @@
             NULL
         {% endif %}                                                                                     AS max
         , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) %}
-            ROUND(AVG({{ adapter.quote(chunk_column[0]) }}), 2)
+            ROUND(AVG(CAST({{ adapter.quote(chunk_column[0]) AS NUMERIC) }}), 2)
         {% else %}
             CAST(NULL AS NUMERIC)
         {% endif %}                                                                                     AS avg

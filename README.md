@@ -22,7 +22,7 @@ so that we could modify the package for processing more than 1000 columns.
 * `min`: Minimum column value
 * `max`: Maximum column value
 * `avg`: Average column value
-* `profiled_at`: Profile calculation date and time
+* `profiled_at`: Profile calculation date and time (UTC time zone)
 
 ## Purpose 
 
@@ -36,8 +36,8 @@ so that we could modify the package for processing more than 1000 columns.
  Include the following in your packages.yml file:
 ```sql
 packages:
-  - git:https://github.com/hari121229/dbt_macros_hub.git
-    revision: v1.0.5
+  - git:https://github.com/vigneshj23/dbt_profiling_tabular.git
+    revision: v1.1.3
 ```
 
 ## Supported adapters
@@ -52,26 +52,43 @@ packages:
 This macro returns a relation profile as a SQL query that can be used in a dbt model. This is handy for previewing relation profiles in dbt Cloud.
 
 ### Arguments
+* `destination_database` (required): Mention the destination output databse name.
+* `destination_schema` (required): Mention the destination output schema name.
+* `destination_table` (required): Mention the destination output table name.
 * `source_database` (required): Mention the source table name.
 * `source_schema` (required): Mention the source schema name
-* `include_tables` (optional): List of columns to include in the profile (default: `[]` i.e., all). Only one of `include_tables` and `include_table` can be specified at a time.
 * `exclude_tables` (optional): List of columns to exclude from the profile (default: `[]`). Only one of `include_tables` and `exclude_tables` can be specified at a time.
-* `destination_database` (required): Mention the destination table name.
-* `destination_schema` (required): Mention the destination table name.
-* `destination_table` (required): Mention the destination table name.
+* `include_tables` (optional): List of columns to include in the profile (default: `[]` i.e., all). Only one of `include_tables` and `include_table` can be specified at a time.
+
 ### Usage
 Use this macro in a dbt model, 
 
 ```sql
+
+{{ data_quality.data_profiling('destination_database','destination_schema','destination_table', 'source_database',['source_schema1','source_schema2'],['exclude_tables],['include_tables'])}}
+
+```
+This above model will create the two tables. First one is temporary table, It doesn't contain any data. Second one is output table,
+It had a profiled data.
+
+If we don't want temporary table, we can avoid that table using materialization or hook 
+```sql
+
 {{
     config(
         materialized='ephemeral'
     )
 }}
 
-
-{{ data_quality.data_profiling('source_database',['source_schema'],['include_tables],['exclude_tables'],'destination_database','destination_schema','destination_table')}}
 ```
+OR
+
+```sql
+    post-hook:
+      - "DROP TABLE IF EXISTS <model name / temporay table name>"
+
+```
+
 ### Example Output
 
 ```

@@ -1,0 +1,12 @@
+integration_tests:
+  outputs:
+    postgres:
+        type: postgres
+        host: localhost
+        user: root
+        password: 'my_password'
+        port: 5432
+        database: profiling_test
+        schema: test
+        threads: 1
+  target: postgres

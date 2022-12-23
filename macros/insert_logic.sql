@@ -12,10 +12,7 @@
                 END )     AS null_count
         FROM {{ source_table_name }}
     {% endset%}
-
-    {% if excute %}
-        {% set null_count = run_query(null_count_query).columns[0].values()[0] %}
-    {% endif %}
+    
     SELECT
 
           '{{ information_schema_data[0] }}'                                                              AS database
@@ -25,11 +22,11 @@
         , '{{ chunk_column[1].upper() }}'                                                                 AS data_type
 
         , CAST(COUNT(*) AS NUMERIC)  	                                                                  AS row_count
-        , CAST(COUNT(*) AS NUMERIC)-{{ null_count }}                                                      AS not_null_count
-        , ROUND(((CAST(COUNT(*) AS NUMERIC)-{{ null_count }} ) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
+        , CAST(COUNT(*) AS NUMERIC)-( {{ null_count_query }} )                                                      AS not_null_count
+        , ROUND(((CAST(COUNT(*) AS NUMERIC)-( {{ null_count_query }} ) ) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
 
-        , {{ null_count }}                                                                                AS null_count
-        , ROUND(({{ null_count }} / CAST(COUNT(*) AS NUMERIC)) * 100, 2)                                  AS null_percentage
+        , ( {{ null_count_query }} )                                                                                AS null_count
+        , ROUND((( {{ null_count_query }} ) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)                                  AS null_percentage
 
         , COUNT(DISTINCT {{ chunk_column[0] }})	                                                          AS distinct_count
         , ROUND(COUNT(DISTINCT {{ chunk_column[0] }}) / CAST(COUNT(*) AS NUMERIC) * 100, 2)               AS distinct_percentage

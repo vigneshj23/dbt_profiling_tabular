@@ -24,7 +24,7 @@
     {% set create_schema %}
         CREATE SCHEMA IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}
     {% endset %}
-    
+    {{create_schema}}
     {% if excute %}
         {% do run_query(create_schema) %}
     {% endif %}
@@ -77,10 +77,7 @@
     {% set create_schema %}
         CREATE SCHEMA IF NOT EXISTS {{ destination_schema }}
     {% endset %}
-
-    {% if excute %}
-        {% do run_query(create_schema) %}
-    {% endif %}
+    {% do run_query(create_schema) %}
 
     {% set create_table %}
         CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} (
@@ -106,9 +103,7 @@
         )
     {% endset %}
 
-    {% if excute %}
-        {% do run_query(create_table) %}
-    {% endif %}
+    {% do run_query(create_table) %}
     {{ return(profiled_at) }}
 
 {% endmacro %}

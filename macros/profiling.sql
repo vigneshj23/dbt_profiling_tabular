@@ -12,29 +12,36 @@
         /* Read the table names from information schema for that particular layer */
         {% set read_information_schema_datas %}
             SELECT
-
                 table_catalog           AS table_database
                 , table_schema
                 , table_name
-
-            FROM {{ target_database }}.INFORMATION_SCHEMA.TABLES
-
+            FROM {{target_database}}.INFORMATION_SCHEMA.TABLES
             WHERE
-                upper(table_schema) IN ( 
-                    {% for profiling_schema in target_schema %} '{{ profiling_schema.upper()}}' {% if not loop.last %} , {% endif %} {% endfor %} )
-
+                table_schema IN ( {%- for profiling_schema in target_schema -%}
+                                        '{{ profiling_schema.lower()}}'
+                                        {%- if not loop.last -%} , {% endif -%}
+                                    {%- endfor -%} )
                 {% if exclude_tables | length != 0 %}
-                    AND upper(table_name) NOT IN ( 
-                        {% for exclude_table in exclude_tables %} '{{ exclude_table.upper() }}' {% if not loop.last %} , {% endif %} {% endfor %} )
-                {% endif %}
+                    AND table_name NOT IN ( {%- for exclude_table in exclude_tables -%}
+                                            '{{ exclude_table.lower() }}'
+                                            {%- if not loop.last -%} , {% endif -%}
+                                        {%- endfor -%} )
+                
+                {% elif include_tables | length != 0 %}
+                    AND table_name IN ( {%- for include_table in include_tables -%}
+                                            '{{ include_table.lower() }}'
+                                            {%- if not loop.last -%} , {% endif -%}
+                                        {%- endfor -%} )
+                {% else %}
 
-                {% if include_tables | length != 0 %}
-                    AND upper(table_name) IN ( 
-                        {% for include_table in include_tables %} '{{ include_table.upper() }}' {% if not loop.last -%} , {% endif %} {% endfor %} )
+                    AND 1 = 1
+                
                 {% endif %}
         {% endset %}
 
-        {% set information_schema_datas = run_query(read_information_schema_datas) %}
+        {% if execute %}
+            {% set information_schema_datas = run_query(read_information_schema_datas) %}
+        {% endif %}
 
         {% for information_schema_data in information_schema_datas %}
 
@@ -51,8 +58,11 @@
                     table_name = '{{ information_schema_data[2] }}' 
                     AND table_schema = '{{ information_schema_data[1] }}'
             {% endset %}
+
+            {% if execute %}
+                {% set source_columns = run_query(column_query)| list %}
+            {% endif %}
             
-            {% set source_columns = run_query(column_query)| list %}
             {% set chunk_columns  = [] %}
 
             {% for source_column in source_columns %}
@@ -95,13 +105,9 @@
                 
             {% endfor %} )
     {% endset %}
+    {{insert_rows}}
+    {% do run_query(insert_rows) %}
 
-    {% if excute %}
-
-        {% do run_query(insert_rows) %}
-
-    {% endif %}
-    
     {% do chunk_columns.clear()  %}
 
 {% endmacro %}

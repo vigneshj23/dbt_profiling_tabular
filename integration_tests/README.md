@@ -1,18 +1,22 @@
-### Overview
+# Overview
+* [Prerequisites](#Prerequisites)
+* [Configure credentials](#Configure credentials)
+* [Build image](#Build image)
+* [Run the image](#Run the image)
 1. Prerequisites
 1. Configure credentials
 1. Build image
 1. Run the image
 
 
-### Prerequisites
+## Prerequisites
 - python3
 - Docker
 
-### Configure credentials
+## Configure credentials
 Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`.
 
-### Build image
+## Build image
 
 Docker and `dockerfile` are both used in testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
 
@@ -22,7 +26,7 @@ This tests are the fastest to run, and the no need to set up indiviually. In the
 docker build -t <image name> .
 ```
 
-### Run the image
+## Run the image
 
 After creating the docker image, you need run the image using the following command.
 ```shell

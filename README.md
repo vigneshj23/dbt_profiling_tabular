@@ -1,10 +1,10 @@
-# dbt-profiler
+# data_profiling
 The dbt_profiling package is inspired from [dbt hub/data_profiler](https://hub.getdbt.com/data-mie/dbt_profiler/latest/).
 That package is processed for only 150 columns for data profiling.
 If we had more than 150, it wouldn't work.
 so that we could modify the package for processing more than 1000 columns.
 
-`dbt-profiler` implements dbt macros for profiling database relations and creating  `doc` blocks and table schemas (`schema.yml`) containing said profiles. A calculated profile contains the following measures for each column in a relation:
+`data_profiling` implements dbt macros for profiling database relations and creating  `doc` blocks and table schemas (`schema.yml`) containing said profiles. A calculated profile contains the following measures for each column in a relation:
 
 * `database`: Name of the column
 * `schema`: Name of the column
@@ -26,7 +26,7 @@ so that we could modify the package for processing more than 1000 columns.
 
 ## Purpose 
 
-`dbt-profiler` aims to provide the following:
+`data_profiling` aims to provide the following:
 
 1. [data_profile](#get_profile-source) macro for generating profiling SQL queries that can be used as dbt models or ad-hoc queries
 2. Describe a mechanism to include model profiles in [dbt docs](https://docs.getdbt.com/docs/building-a-dbt-project/documentation)
@@ -43,11 +43,11 @@ packages:
 ## Supported adapters
 
 ✅ Snowflake
+
 ✅ Postgres
 
-# Macros
 
-## data_profile ([source](macros/get_profile.sql))
+## data_profiling  macro ([source](/macros/profiling.sql))
 
 This macro returns a relation profile as a SQL query that can be used in a dbt model. This is handy for previewing relation profiles in dbt Cloud.
 

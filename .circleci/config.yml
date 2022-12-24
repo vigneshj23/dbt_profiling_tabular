@@ -57,6 +57,4 @@ workflows:
   continuous-integration:
     jobs:
       - integration-postgres
-      - integration-snowflake:
-          requires:
-            - integration-postgres
+      - integration-snowflake

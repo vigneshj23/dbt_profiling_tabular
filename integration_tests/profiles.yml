@@ -7,6 +7,6 @@ integration_tests:
         password: test
         port: 5432
         database: profiling_test
-        schema: test
+        schema: integration_tests
         threads: 1
   target: postgres

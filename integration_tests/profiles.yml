@@ -4,7 +4,7 @@ integration_tests:
         type: postgres
         host: localhost
         user: root
-        password: 'my_password'
+        password: test
         port: 5432
         database: profiling_test
         schema: test

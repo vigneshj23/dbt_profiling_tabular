@@ -16,7 +16,7 @@ Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`.
 
 Docker and `dockerfile` are both used in testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
 
-Postgres offers the easiest way to test most `dbt_profiling_tabular` functionality today. Its tests are the fastest to run, and the easiest to set up. In the dockerfile all test procedures are declared.
+This tests are the fastest to run, and the no need to set up indiviually. In the dockerfile all test procedures are declared.
 
 ```shell
 docker build -t <image name> .
@@ -29,7 +29,7 @@ After creating the docker image, you need run the image using the following comm
 docker run <image name>
 ```
 
-For your verfication you can check the docker log or you can run the following command in docker image CLI.
+Next you need to run the following command in docker container CLI.
 
 ```shell
 dbt deps --target postgres

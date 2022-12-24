@@ -18,12 +18,7 @@ export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection
 dbt debug 
-
 dbt deps 
 dbt seed  --full-refresh
-dbt run -m profile_multiple_schema
-dbt run -m profile_single_schema
-dbt run -m profile_exclude_tables
-dbt run -m profile_include_tables
-dbt run -m test_cases
+dbt run
 dbt test 

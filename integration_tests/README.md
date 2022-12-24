@@ -29,13 +29,14 @@ After creating the docker image, you need run the image using the following comm
 docker run <image name>
 ```
 
-Next you need to run the following command in docker container CLI.
+Next you need to run the following command in docker container CLI or open the another terminal `docker exec -it <container id> bash` and run the following command.
 
 ```shell
-dbt deps --target postgres
-dbt seed --target postgres
-dbt run --target postgres
-dbt test --target postgres
+dbt debug 
+dbt deps 
+dbt seed  --full-refresh
+dbt run
+dbt test
 ```
 
 If the tests all pass, then you're good to go! All tests will be run automatically when you create a PR against this repo.

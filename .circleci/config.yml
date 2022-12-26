@@ -31,7 +31,7 @@ jobs:
       - run: 
           name: permission given
           command: |
-            chmod u+x function.sh.sh
+            chmod u+x function.sh
       - run:
           name: "Run OG Tests - postgres"
           command: ./function.sh postgres

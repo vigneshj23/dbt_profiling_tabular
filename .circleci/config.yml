@@ -47,7 +47,7 @@ jobs:
             chmod u+x run_test.sh
       - run:
           name: "Run OG Tests - Snowflake"
-          command: ./run_test.sh Snowflake
+          command: ./run_test.sh snowflake
       - store_artifacts:
           path: integration_tests/logs          
       - store_artifacts:

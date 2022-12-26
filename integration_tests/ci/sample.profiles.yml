@@ -1,0 +1,21 @@
+integration_tests:
+  outputs:
+    postgres:
+        type: postgres
+        host: ${POSTGRES_HOST}
+        user: ${POSTGRES_USER}
+        password: ${POSTGRES_PASSWORD}
+        port: ${POSTGRES_PORT}
+        database: ${POSTGRES_DATABASE}
+        schema: ${POSTGRES_SCHEMA}
+        threads: 1
+    snowflake:
+        account: ${SNOWFLAKE_ACCOUNT}
+        database: ${SNOWFLAKE_DATABASE}
+        password: ${SNOWFLAKE_PASSWORD}
+        role: ${SNOWFLAKE_ROLE}
+        schema: ${SNOWFLAKE_SCHEMA}
+        threads: 4
+        type: snowflake
+        user: ${SNOWFLAKE_USER}
+        warehouse: ${SNOWFLAKE_WAREHOUSE}

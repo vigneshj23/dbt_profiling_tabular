@@ -6,19 +6,12 @@ dbt --version
 
 # Set the profile
 cd integration_tests
-export $(cat .env/$1.env | xargs) && rails c
-# mv profiles.yml template.yml
+export $(cat .env | xargs) && rails c
+
 rm -f profiles.yml temp.yml
 ( echo "cat <<EOF >>profiles.yml";
-  cat ci/$1.profiles.yml;
+  cat ci/sample.profiles.yml;
 ) >temp.yml
 . temp.yml
 cat profiles.yml
 export DBT_PROFILES_DIR=.
-
-# Show the location of the profiles directory and test the connection
-dbt debug 
-dbt deps 
-dbt seed  --full-refresh
-dbt run
-dbt test 

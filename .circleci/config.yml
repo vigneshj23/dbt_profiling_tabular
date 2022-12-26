@@ -28,13 +28,6 @@ jobs:
       - run:
           name: "Run OG Tests - postgres"
           command: ./run_test.sh
-      - run: 
-          name: permission given
-          command: |
-            chmod u+x function.sh
-      - run:
-          name: "Run OG Tests - postgres"
-          command: ./function.sh postgres
       - store_artifacts:
           path: integration_tests/logs          
       - store_artifacts:
@@ -47,6 +40,7 @@ jobs:
     steps:
       - checkout
       - run: pip install --pre dbt-snowflake -r requirements.txt
+      - run:
       - run: 
           name: permission given
           command: |
@@ -54,13 +48,6 @@ jobs:
       - run:
           name: "Run OG Tests - Snowflake"
           command: ./run_test.sh
-      - run: 
-          name: permission given
-          command: |
-            chmod u+x function.sh
-      - run:
-          name: "Run OG Tests - Snowflake"
-          command: ./function.sh snowflake
       - store_artifacts:
           path: integration_tests/logs          
       - store_artifacts:

@@ -1,17 +1,8 @@
-# Show location of local install of dbt
-echo $(which dbt)
-
-# Show version and installed adapters
-dbt --version
-
-# Set the profile
 cd integration_tests
-export $(cat .env | xargs) && rails c
-
-rm -f profiles.yml temp.yml
-( echo "cat <<EOF >>profiles.yml";
-  cat ci/sample.profiles.yml;
-) >temp.yml
-. temp.yml
-cat profiles.yml
-export DBT_PROFILES_DIR=.
+python test.py
+# Show the location of the profiles directory and test the connection
+dbt debug --target $1
+dbt deps --target $1
+dbt seed --target $1 --full-refresh
+dbt run --target $1
+dbt test --target $1

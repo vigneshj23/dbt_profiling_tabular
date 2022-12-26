@@ -16,7 +16,7 @@ Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`.
 
 Docker and `dockerfile` are both used in testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
 
-This tests are the fastest to run, and the no need to set up indiviually. In the dockerfile all test procedures are declared.
+There is no need to set up this test separately. All test procedures are declared in the docker file. Use the command below to create a docker image.
 
 ```shell
 docker build -t <image name> .
@@ -24,12 +24,12 @@ docker build -t <image name> .
 
 ## Run
 
-After creating the docker image, you need run the image using the following command.
+Use the following command to launch the docker image after it has been created.
 ```shell
 docker run <image name>
 ```
 
-Next you need to run the following command in docker container CLI or open the another terminal `docker exec -it <container id> bash` and run the following command.
+Run the following command in the Docker container CLI after that, or open a new terminal and type "docker exec -it container id bash" before doing so.
 
 ```shell
 dbt debug 

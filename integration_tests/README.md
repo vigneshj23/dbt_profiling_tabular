@@ -16,7 +16,7 @@ Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`.
 
 Docker and `dockerfile` are both used in testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
 
-This integration tests are the fastest to run, and no need to set up indiviually. In the dockerfile all test procedures are declared.
+There is no need to set up this test separately. All test procedures are declared in the docker file. Use the command below to create a docker image.
 
 ```shell
 docker build -t <image name> .

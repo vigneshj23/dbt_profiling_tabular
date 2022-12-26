@@ -1,32 +1,31 @@
-# data_profiling
-The dbt_profiling package is inspired from [dbt hub/data_profiler](https://hub.getdbt.com/data-mie/dbt_profiler/latest/).
-That package is processed for only 150 columns for data profiling.
-If we had more than 150, it wouldn't work.
-so that we could modify the package for processing more than 1000 columns.
+# data_profiler
+The data_profiler package is based on the [dbt hub/dbt_profiler](https://hub.getdbt.com/data-mie/dbt_profiler/latest/).
+Profiling for a table with more than 150 fields can be done more efficiently with the data_profiler package.
 
-`data_profiling` implements dbt macros for profiling database relations and creating  `doc` blocks and table schemas (`schema.yml`) containing said profiles. A calculated profile contains the following measures for each column in a relation:
+`data_profiler` uses dbt macros to profile database relationships and table schemas (`schema.yml`). 
+For each column in a relation, a calculated profile includes the following measures:
 
-* `database`: Name of the column
-* `schema`: Name of the column
-* `table_name`: Name of the column
+* `database`: Database name
+* `schema`: Schema name
+* `table_name`: Table name
 * `row_count`: Column based row count
 * `column_name`: Name of the column
 * `data_type`: Data type of the column
-* `not_null_count`: Count the not_null values by column based
-* `null_count`: Count the null values by column based.
+* `not_null_count`: Count the not_null values based on columns
+* `null_count`: Count the null values by column based on columns
 * `not_null_percentage`: Percentage of column values that are not `NULL` (e.g., `0.62` means that 62% of the values are populated while 38% are `NULL`)
-* `null_percentage`: Percentage of column values that are not `NOT_NULL` (e.g., `0.55` means that 55% of the values are populated while 45% are `NOT_NULL`)
+* `null_percentage`: Percentage of column values that are `NOT_NULL` (e.g., `0.55` means that 55% of the values are populated while 45% are `NOT_NULL`)
 * `distinct_percentage`: Percentage of unique column values (e.g., `1` means that 100% of the values are unique)
 * `distinct_count`: Count of unique column values
 * `is_unique`: True if all column values are unique
 * `min`: Minimum column value
 * `max`: Maximum column value
 * `avg`: Average column value
-* `profiled_at`: Profile calculation date and time (UTC time zone)
+* `profiled_at`: Date and time (UTC time zone) of the profiling 
 
 ## Purpose 
 
-`data_profiling` aims to provide the following:
+`data_profiler` aims to provide
 
 1. [data_profile](#get_profile-source) macro for generating profiling SQL queries that can be used as dbt models or ad-hoc queries
 2. Describe a mechanism to include model profiles in [dbt docs](https://docs.getdbt.com/docs/building-a-dbt-project/documentation)
@@ -47,7 +46,7 @@ packages:
 ✅ Postgres
 
 
-## data_profiling  macro ([source](/macros/profiling.sql))
+## data_profiler  macro ([source](/macros/profiling.sql))
 
 This macro returns a relation profile as a SQL query that can be used in a dbt model. This is handy for previewing relation profiles in dbt Cloud.
 

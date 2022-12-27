@@ -1,0 +1,16 @@
+name:Testing
+
+on:
+  pull_request:
+    branches:
+    - main
+        
+jobs:
+  build:
+    name: Testing on snowflake
+    runs-on: ubuntu-latest
+    uses: Harmon758/postgresql-action@v1.0.0
+    with:
+      POSTGRES_USER: root
+      POSTGRES_DB: profiling_test
+            

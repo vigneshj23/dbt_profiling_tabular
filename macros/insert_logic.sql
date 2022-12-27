@@ -11,11 +11,11 @@
         , '{{ chunk_column[1] }}'                           AS data_type
 
         , CAST(COUNT(*) AS NUMERIC)  	                                                                                                                                                         AS row_count
-        , CAST( SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END) AS NUMERIC)                                   AS not_null_count
-        , ROUND((SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END) ) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
+        , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END)                                                     AS not_null_count
+        , ROUND(((SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
 
         , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END)                                                     AS null_count
-        , ROUND(( SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)      AS null_percentage
+        , ROUND(((SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS null_percentage
 
         , COUNT(DISTINCT {{ chunk_column[0] }})	                                                                                                                                                 AS distinct_count
         , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100,2)                                                                                                         AS distinct_count_percentage

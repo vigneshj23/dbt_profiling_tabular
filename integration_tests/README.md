@@ -10,7 +10,7 @@
 - Docker
 
 ## Configure
-Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`.
+Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`. For the postgres default user root, password is test and database is profiling_test
 
 ## Build
 
@@ -32,11 +32,11 @@ docker run <image name>
 Run the following command in the Docker container CLI after that, or open a new terminal and type "docker exec -it container id bash" before doing so.
 
 ```shell
-dbt debug 
-dbt deps 
-dbt seed  --full-refresh
-dbt run
-dbt test
+dbt debug --target <target name>
+dbt deps
+dbt seed --target <target name> --full-refresh
+dbt run --target <target name>
+dbt test --target <target name>
 ```
 
 If the tests all pass, then you're good to go! All tests will be run automatically when you create a PR against this repo.

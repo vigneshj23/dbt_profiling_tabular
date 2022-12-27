@@ -27,11 +27,12 @@ For each column in a relation, a calculated profile includes the following measu
 
 `data_profiler` aims to provide
 
-1. [data_profile](#get_profile-source) macro for generating profiling SQL queries that can be used as dbt models or ad-hoc queries
+1. [data_profiler](#profiling) macro for generating profiling SQL queries that can be used as dbt models or ad-hoc queries
 2. Describe a mechanism to include model profiles in [dbt docs](https://docs.getdbt.com/docs/building-a-dbt-project/documentation)
 
 ## Installation
  dbt version required: >=1.1.0.
+
  Include the following in your packages.yml file:
 ```sql
 packages:
@@ -56,8 +57,8 @@ This macro returns a relation profile as a SQL query that can be used in a dbt m
 * `destination_table` (required): Mention the destination output table name.
 * `source_database` (required): Mention the source table name.
 * `source_schema` (required): Mention the source schema name
-* `exclude_tables` (optional): List of columns to exclude from the profile (default: `[]`). Only one of `include_tables` and `exclude_tables` can be specified at a time.
-* `include_tables` (optional): List of columns to include in the profile (default: `[]` i.e., all). Only one of `include_tables` and `include_table` can be specified at a time.
+* `exclude_tables` (optional): List of tables to exclude from the profile (default: `[]`). Only one of `include_tables` and `exclude_tables` can be specified at a time.
+* `include_tables` (optional): List of tables to include in the profile (default: `[]` i.e., all). Only one of `include_tables` and `include_table` can be specified at a time.
 
 ### Usage
 Use this macro in a dbt model, 

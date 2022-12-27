@@ -53,7 +53,7 @@
                 FROM {{target_database}}.information_schema.columns
 
                 WHERE table_name = '{{information_schema_data[2]}}' 
-                    AND table_schema = '{{information_schema_data[1]}}' 
+                    AND table_schema  = '{{information_schema_data[1]}}' 
                     AND table_catalog = '{{information_schema_data[0]}}'
             {% endset %}
 
@@ -64,9 +64,12 @@
             {% set chunk_columns     = [] %}
 
             {% for source_column in source_columns %}
+
                     {% do chunk_columns.append(source_column) %}
                     {% if (chunk_columns | length) == 100 %}
+
                         {% set insert_rows %}
+
                             INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
                             (
                             {% for chunk_column in chunk_columns %}
@@ -74,14 +77,20 @@
                                 {% if not loop.last %} UNION ALL {% endif %}
                             {% endfor %}
                             )
+
                         {% endset %}
+
                         {% do run_query(insert_rows) %}
                         {% do chunk_columns.clear() %}
+
                     {% endif %}
+
             {% endfor %}
 
             {% if (chunk_columns | length) != 0 %}
+
                 {% set insert_rows %}
+
                     INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
                     (
                     {% for chunk_column in chunk_columns %}
@@ -89,12 +98,15 @@
                         {% if not loop.last %} UNION ALL {% endif %}
                     {% endfor %}
                     )
+
                 {% endset %}
+
                 {% do run_query(insert_rows) %}
                 {% do chunk_columns.clear() %}
-            {% endif %}
-        {% endfor %}
 
+            {% endif %}
+
+        {% endfor %}
 
     {% endif %}
 

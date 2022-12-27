@@ -1,9 +1,9 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Macro for identifying the data platforms and based on that it will redirect to specific macro
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro create_query(destination_database,destination_schema,destination_table) -%}
+{% macro create_query(destination_database, destination_schema, destination_table) -%}
 
-  {{ return(adapter.dispatch('create_query','dbt_profiling_tabular')(destination_database,destination_schema,destination_table)) }}
+  {{ return(adapter.dispatch('create_query', 'dbt_profiling_tabular')(destination_database, destination_schema, destination_table)) }}
   
 {%- endmacro %}
 
@@ -11,7 +11,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- This macro is used to creating the schema and table in snowflake
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro snowflake__create_query(destination_database,destination_schema,destination_table) -%}
+{% macro snowflake__create_query(destination_database, destination_schema, destination_table) -%}
 
     {% set get_current_timestamp %}
         SELECT CAST(CONVERT_TIMEZONE('UTC', CURRENT_TIMESTAMP()) AS TIMESTAMP_NTZ) AS utc_time_zone
@@ -28,7 +28,7 @@
     {% do run_query(create_schema) %}
 
     {% set create_table %}
-        CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }}(
+        CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} (
             database                    VARCHAR(100)
             , schema                    VARCHAR(100)
             , table_name                VARCHAR(100)
@@ -59,10 +59,10 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- This macro is used to creating the table for postgres
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro postgres__create_query(destination_database,destination_schema,destination_table) -%}
+{% macro postgres__create_query(destination_database, destination_schema, destination_table) -%}
 
     {% set get_current_timestamp %}
-        SELECT CAST(now() at time zone 'utc'AS TIMESTAMPTZ) AS utc_time_zone
+        SELECT CAST(NOW() AT TIME ZONE 'UTC'AS TIMESTAMPTZ) AS utc_time_zone
     {% endset %}
 
     {% if execute %}
@@ -76,7 +76,7 @@
     {% do run_query(create_schema) %}
 
     {% set create_table %}
-        CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }}(
+        CREATE TABLE IF NOT EXISTS {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} (
             database                    VARCHAR(100)
             , schema                    VARCHAR(100)
             , table_name                VARCHAR(100)
@@ -102,5 +102,3 @@
     {{ return(profiled_at) }}
 
 {%- endmacro %}
-
-

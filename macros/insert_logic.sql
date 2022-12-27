@@ -10,17 +10,17 @@
         , '{{ chunk_column[0] }}'                           AS column_name
         , '{{ chunk_column[1] }}'                           AS data_type
 
-        , CAST(COUNT(*) AS NUMERIC)  	                                                                                                                                                                                    AS row_count
-        , CAST(COUNT(*) AS NUMERIC)-SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END)                                                      AS not_null_count
-        , ROUND(((CAST(COUNT(*) AS NUMERIC)-SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END) ) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
+        , CAST(COUNT(*) AS NUMERIC)  	                                                                                                                                                         AS row_count
+        , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END)                                                     AS not_null_count
+        , ROUND((SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END) ) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
 
-        , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END)                                                                                AS null_count
-        , ROUND(( SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)                                 AS null_percentage
+        , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END)                                                     AS null_count
+        , ROUND(( SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)      AS null_percentage
 
-        , COUNT(DISTINCT {{ chunk_column[0] }})	                                                                                                                                                                            AS distinct_count
-        , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100,2)                                                                                                                                    AS distinct_count_percentage
+        , COUNT(DISTINCT {{ chunk_column[0] }})	                                                                                                                                                 AS distinct_count
+        , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100,2)                                                                                                         AS distinct_count_percentage
 
-        , COUNT(DISTINCT {{ chunk_column[0] }})=CAST(COUNT(*) AS NUMERIC)                                                                                                                                                   AS IS_UNIQUE
+        , COUNT(DISTINCT {{ chunk_column[0] }})=CAST(COUNT(*) AS NUMERIC)                                                                                                                        AS IS_UNIQUE
         
         , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) or dbt_profiling_tabular.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MIN({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
@@ -51,7 +51,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 {% macro is_numeric_dtype(dtype) %}
 
-    {% set is_numeric = dtype.startswith("int") or dtype.startswith("float") or "numeric" in dtype or "NUMERIC" in dtype or "double" in dtype %}
+    {% set is_numeric = dtype.startswith("int") or dtype.startswith("float") or "numeric" in dtype or "NUMERIC" in dtype or "double" in dtype or "NUMBER" in dtype or "number" in dtype%}
 
     {% do return(is_numeric) %}
 
@@ -66,5 +66,5 @@
     {% set is_date_or_time = dtype.startswith("timestamp") or dtype.startswith("date") %}
 
     {% do return(is_date_or_time) %}
-    
+
 {% endmacro %}

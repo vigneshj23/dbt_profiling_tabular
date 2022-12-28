@@ -1,13 +1,13 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Macro for do data profiling based on the parameters we passed
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro data_profiling(destination_database, destination_schema, destination_table, target_database, target_schema, exclude_tables=[], include_tables=[]) %}
+{% macro data_profiling(target_database, target_schema, target_table, source_database, source_schema, exclude_tables=[], include_tables=[]) %}
  
-    {{ dbt_profiling_tabular.variable_validator(destination_database, destination_schema, destination_table, target_database, target_schema, exclude_tables, include_tables) }}
+    {{ dbt_profiling_tabular.variable_validator(target_database, target_schema, target_table, source_database, source_schema, exclude_tables, include_tables) }}
     
     {% if (flags.WHICH).upper() == 'RUN' %}
 
-        {% set profiled_at = dbt_profiling_tabular.create_query(destination_database, destination_schema, destination_table) %}
+        {% set profiled_at = dbt_profiling_tabular.create_query(target_database, target_schema, target_table) %}
 
         -- Read the table names from information schema for that particular layer
         {% set read_information_schema_datas %}
@@ -18,10 +18,15 @@
                 , table_schema
                 , table_name
 
-            FROM {{target_database}}.INFORMATION_SCHEMA.TABLES
+            FROM {{source_database}}.INFORMATION_SCHEMA.TABLES
             WHERE
-                LOWER(table_schema) IN ( 
-                    {%- for profiling_schema in target_schema -%} '{{ profiling_schema.lower()}}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
+                {% if source_schema | length == 0 %}
+                    LOWER(table_schema) != 'information_schema'
+
+                {% else %}
+                    LOWER(table_schema) IN ( 
+                        {%- for profiling_schema in source_schema -%} '{{ profiling_schema.lower()}}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
+                {% endif %}
 
                 {% if exclude_tables | length != 0 %}
                     AND LOWER(table_name) NOT IN ( 
@@ -50,7 +55,7 @@
                     column_name
                     , data_type
 
-                FROM {{target_database}}.information_schema.columns
+                FROM {{source_database}}.information_schema.columns
 
                 WHERE table_name = '{{information_schema_data[2]}}' 
                     AND table_schema  = '{{information_schema_data[1]}}' 
@@ -70,7 +75,7 @@
 
                         {% set insert_rows %}
 
-                            INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
+                            INSERT INTO {{ target_database }}.{{ target_schema }}.{{ target_table }} 
                             (
                             {% for chunk_column in chunk_columns %}
                                 {{ dbt_profiling_tabular.do_data_profiling(information_schema_data, source_table_name, chunk_column, profiled_at) }}
@@ -91,7 +96,7 @@
 
                 {% set insert_rows %}
 
-                    INSERT INTO {{ destination_database }}.{{ destination_schema }}.{{ destination_table }} 
+                    INSERT INTO {{ target_database }}.{{ target_schema }}.{{ target_table }} 
                     (
                     {% for chunk_column in chunk_columns %}
                         {{ dbt_profiling_tabular.do_data_profiling(information_schema_data, source_table_name, chunk_column, profiled_at) }}

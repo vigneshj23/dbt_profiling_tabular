@@ -1,4 +1,3 @@
-dbt-core
 dbt-postgres
 dbt-snowflake
 python-dotenv

@@ -8,9 +8,7 @@
     {% endif %}
 
     -- source schema validation
-    {% if source_schema | length == 0 %}
-        {{ exceptions.raise_compiler_error(" `source_schema` should not be empty  ") }}
-    {% elif '[' not in source_schema | string %}
+    {% if '[' not in source_schema | string %}
         {{ exceptions.raise_compiler_error(" `source_schema` should not be a string ") }}
     {% endif %}
 

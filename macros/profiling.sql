@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Macro for do data profiling based on the parameters we passed
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro data_profiling(target_database, target_schema, target_table, source_database, source_schema, exclude_tables=[], include_tables=[]) %}
+{% macro data_profiling(target_database, target_schema, target_table, source_database, source_schema=[], exclude_tables=[], include_tables=[]) %}
  
     {{ dbt_profiling_tabular.variable_validator(target_database, target_schema, target_table, source_database, source_schema, exclude_tables, include_tables) }}
     
@@ -21,7 +21,7 @@
             FROM {{source_database}}.INFORMATION_SCHEMA.TABLES
             WHERE
                 {% if source_schema | length == 0 %}
-                    LOWER(table_schema) != 'information_schema'
+                    LOWER(table_schema) NOT IN ('information_schema','pg_catalog')
 
                 {% else %}
                     LOWER(table_schema) IN ( 

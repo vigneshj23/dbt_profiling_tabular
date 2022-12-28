@@ -10,13 +10,13 @@
 - Docker
 
 ## Configure
-Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`. For the postgres default user root, password is test and database is profiling_test.
+Edit the env file for your TARGET in `integration_tests/.env`. For the postgres, default values are `user=root`, `password=test` and `database=profiling_test`.
 
 ## Build
 
-Docker and `dockerfile` are both used in testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
+Docker and `dockerfile` were used for testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
 
-There is no need to set up this test separately. All test procedures are declared in the docker file. Use the command below to create a docker image.
+No set up required for this test. All test procedures are declared in the docker file. Use the command below to create a docker image.
 
 ```shell
 docker build -t <image name> .
@@ -25,6 +25,7 @@ docker build -t <image name> .
 ## Run
 
 Use the following command to launch the docker image after it has been created.
+
 ```shell
 docker run <image name>
 ```
@@ -39,4 +40,6 @@ dbt run --target <target name>
 dbt test --target <target name>
 ```
 
-If the tests all pass, then you're good to go! All tests will be run automatically when you create a PR against this repo.
+If all the tests were pass, then you're good to go! 
+
+When PR is created against this repo, all tests will run automatically 

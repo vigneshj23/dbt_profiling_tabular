@@ -15,3 +15,7 @@ SELECT
 		WHEN (SELECT COUNT(*) FROM profiling_test.profiling.data_profile_include_table)!=0 THEN 1
 		ELSE NULL
 	END AS include_table_row_count
+	, CASE
+		WHEN (SELECT COUNT(*) FROM profiling_test.profiling.data_profile_without_schema)!=0 THEN 1
+		ELSE NULL
+	END AS without_schema_row_count

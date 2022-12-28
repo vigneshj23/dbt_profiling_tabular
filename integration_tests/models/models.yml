@@ -15,3 +15,6 @@ models:
       - name: include_table_row_count
         tests:
           - not_null
+      - name: without_schema_row_count
+        tests:
+          - not_null

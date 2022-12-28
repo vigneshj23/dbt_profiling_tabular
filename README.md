@@ -37,7 +37,7 @@ For each column in a relation, a calculated profile includes the following measu
 ```sql
 packages:
   - git:https://github.com/vigneshj23/dbt_profiling_tabular.git
-    revision: v1.1.7
+    revision: v2.1.3
 ```
 
 ## Supported adapters
@@ -97,7 +97,7 @@ OR
 
 ```
 
-### Example Output
+### Sample Output
 
 ```
 |    DATABASE           | SCHEMA | TABLE_NAME | COLUMN_NAME         | DATA_TYPE | ROW_COUNT | NOT_NULL_COUNT | NULL_COUNT | NOT_NULL_PERCENTAGE| NULL_PERCENTAGE | DISTINCT_COUNT | DISTINCT_PERCENT |IS_UNIQUE | MIN      | MAX 	|    AVG 	   |      PROFILED_AT 		|

@@ -29,7 +29,7 @@ Use the following command to launch the docker image after it has been created.
 docker run <image name>
 ```
 
-Run the following command in the Docker container CLI after that, or open a new terminal and type "docker exec -it container id bash" before doing so.
+Run the following command in the Docker container CLI after that, or open a new terminal and type `docker exec -it <container id> bash` before doing so.
 
 ```shell
 dbt debug --target <target name>

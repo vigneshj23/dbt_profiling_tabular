@@ -8,12 +8,12 @@ For each column in a relation, a calculated profile includes the following measu
 * `database`: Database name
 * `schema`: Schema name
 * `table_name`: Table name
-* `row_count`: Column based row count
 * `column_name`: Name of the column
 * `data_type`: Data type of the column
+* `row_count`: Column based row count
 * `not_null_count`: Count the not_null values based on columns
-* `null_count`: Count the null values by column based on columns
 * `not_null_percentage`: Percentage of column values that are not `NULL` (e.g., `0.62` means that 62% of the values are populated while 38% are `NULL`)
+* `null_count`: Count the null values by column based on columns
 * `null_percentage`: Percentage of column values that are `NOT_NULL` (e.g., `0.55` means that 55% of the values are populated while 45% are `NOT_NULL`)
 * `distinct_percentage`: Percentage of unique column values (e.g., `1` means that 100% of the values are unique)
 * `distinct_count`: Count of unique column values

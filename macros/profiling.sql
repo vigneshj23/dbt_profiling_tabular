@@ -5,7 +5,7 @@
  
     {{ dbt_profiling_tabular.variable_validator(target_database, target_schema, target_table, source_database, source_schema, exclude_tables, include_tables) }}
     
-    {% if (flags.WHICH).upper() == 'RUN' %}
+    {% if (flags.WHICH).upper() == 'RUN' or (flags.WHICH).upper() == 'RUN-OPERATION' %}
 
         {% set profiled_at = dbt_profiling_tabular.create_query(target_database, target_schema, target_table) %}
 

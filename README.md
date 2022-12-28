@@ -62,8 +62,14 @@ This macro returns a relation profile as a SQL query that can be used in a dbt m
 
 ### Usage
 Using the `dbt run operation` or `dbt model` it is possible to create a profiling table. If only one database is being profiled, a dbt run operation is recommended. if employing the loop concept, the dbt model can be used to profile data from various databases.
+Use this run operation command,
 
-Use this macro in a dbt model, 
+```sql
+
+dbt run-operation dbt_profiling_tabular.data_profiling --args "{target_database: <target datbase>, target_schema: <target schema>, target_table: <target table>, source_database: <source database>, source_schema: [<source schema 1>,<source schema 2>...], exclude_tables: [<exclude table 1>,<exclude table 2>...], include_tables: [<include table 1>,<include table 2>...]}" --target <target name>
+
+```
+For the dbt model method use this, 
 
 ```sql
 

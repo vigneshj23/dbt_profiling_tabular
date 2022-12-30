@@ -57,9 +57,9 @@
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
--- This macro is used to creating the table for postgres
+-- This macro is used to creating the table for postgres and also this is the default macro
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-{% macro postgres__create_query(target_database, target_schema, target_table) -%}
+{% macro default__create_query(target_database, target_schema, target_table) -%}
 
     {% set get_current_timestamp %}
         SELECT CAST(NOW() AT TIME ZONE 'UTC'AS TIMESTAMPTZ) AS utc_time_zone

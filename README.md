@@ -39,20 +39,24 @@ This macro returns a relation profile as a SQL query that can be used in a dbt m
 * `target_schema` (required): Mention the target output schema name.
 * `target_table` (required): Mention the target output table name.
 * `source_database` (required): Mention the source table name.
-* `source_schema` (required): Mention the source schema name
+* `source_schema` (optional): Mention the source schema name
 * `exclude_tables` (optional): List of tables to exclude from the profile (default: `[]`). Only one of `include_tables` and `exclude_tables` can be specified at a time.
 * `include_tables` (optional): List of tables to include in the profile (default: `[]` i.e., all). Only one of `include_tables` and `include_table` can be specified at a time.
 
-### Usage
+## Usage
 Use the `dbt run-operation` or `dbt model` to create a profiling table. `dbt run-operation` is recommended only if single database need to be profiled or else `dbt model` can be used for profiling the multiple databases.
-Use this run operation command,
+
+### Case 1 (Single database)
+Single database handling use the following run-operation command,
 
 ```sql
 
 dbt run-operation data_profiler.data_profiling --args "{target_database: <target datbase>, target_schema: <target schema>, target_table: <target table>, source_database: <source database>, source_schema: [<source schema 1>,<source schema 2>...], exclude_tables: [<exclude table 1>,<exclude table 2>...], include_tables: [<include table 1>,<include table 2>...]}" --target <target name>
 
 ```
-For the dbt model method use this, 
+
+### Case 2 (Multiple database)
+For the mutiple database handling use dbt model method, 
 
 ```sql
 
@@ -89,7 +93,7 @@ OR
 ### Sample Output
 
 ```
-|    DATABASE           | SCHEMA | TABLE_NAME | COLUMN_NAME         | DATA_TYPE | ROW_COUNT | NOT_NULL_COUNT | NULL_COUNT | NOT_NULL_PERCENTAGE| NULL_PERCENTAGE | DISTINCT_COUNT | DISTINCT_PERCENT |IS_UNIQUE | MIN      | MAX 	|    AVG 	   |      PROFILED_AT            |
+|    DATABASE           | SCHEMA | TABLE_NAME | COLUMN_NAME         | DATA_TYPE | ROW_COUNT | NOT_NULL_COUNT | NULL_COUNT | NOT_NULL_PERCENTAGE| NULL_PERCENTAGE | DISTINCT_COUNT | DISTINCT_PERCENT |IS_UNIQUE | MIN      | MAX 	|    AVG 	   |      PROFILED_AT           |
 | ----------------------| -------| -----------|-------------------- | ----------|---------- | -------------- | ---------  | ------------------ | --------------- | -------------- | -----------------| -------- | ---------|------------|------------------|----------------------------|
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_ORDERKEY          | NUMBER    |1500000    |1500000         |	0	  | 100.00     	       |0.00		 |1500000         |100.00	     |TRUE	|1         |6000000     |2999991.50        |2022-12-06T09:05:18.183Z	|
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_CUSTKEY           | NUMBER	|1500000    |1500000         |	0         | 100.00     	       |0.00		 |99996		  |6.67		     |FALSE	|1    	   |149999      |75006.04          |2022-12-06T09:05:18.183Z	|

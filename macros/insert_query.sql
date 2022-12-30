@@ -19,9 +19,9 @@
         , ROUND(((SUM(CASE WHEN (CASE WHEN {{ chunk_column[0] }}::VARCHAR = '' THEN NULL ELSE {{ chunk_column[0] }} END ) IS NULL THEN 1 ELSE 0 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS null_percentage
 
         , COUNT(DISTINCT {{ chunk_column[0] }})	                                                                                                                                                 AS distinct_count
-        , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100, 2)                                                                                                         AS distinct_count_percentage
+        , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100, 2)                                                                                                        AS distinct_count_percentage
 
-        , COUNT(DISTINCT {{ chunk_column[0] }}) = CAST(COUNT(*) AS NUMERIC)                                                                                                                        AS IS_UNIQUE
+        , COUNT(DISTINCT {{ chunk_column[0] }}) = CAST(COUNT(*) AS NUMERIC)                                                                                                                      AS IS_UNIQUE
         
         , {% if data_profiler.is_numeric_dtype((chunk_column[1]).lower()) or data_profiler.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MIN({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
@@ -41,7 +41,7 @@
             CAST(NULL AS NUMERIC)
         {% endif %}    AS avg
 
-        , CAST('{{current_date_and_time}}' AS timestamp)        AS profiled_at
+        , CAST('{{current_date_and_time}}' AS timestamp) AS profiled_at
 
     FROM {{ source_table_name }}
 

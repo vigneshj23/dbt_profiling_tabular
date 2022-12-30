@@ -22,7 +22,6 @@
             WHERE
                 {% if source_schema | length == 0 %}
                     LOWER(table_schema) NOT IN ('information_schema', 'pg_catalog')
-
                 {% else %}
                     LOWER(table_schema) IN ( 
                         {%- for profiling_schema in source_schema -%} '{{ profiling_schema.lower() }}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
@@ -31,11 +30,9 @@
                 {% if exclude_tables | length != 0 %}
                     AND LOWER(table_name) NOT IN ( 
                         {%- for exclude_table in exclude_tables -%} '{{ exclude_table.lower() }}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
-                
                 {% elif include_tables | length != 0 %}
                     AND LOWER(table_name) IN ( 
                         {%- for include_table in include_tables -%} '{{ include_table.lower() }}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
-
                 {% else %}
                     AND 1 = 1
                 {% endif %}
@@ -50,23 +47,24 @@
 
             {% set source_table_name = information_schema_data[0] + '.' + information_schema_data[1] + '.' + information_schema_data[2] %}
             {% set column_query %}
+
                 SELECT
 
                     column_name
                     , data_type
 
                 FROM {{ source_database }}.information_schema.columns
-
                 WHERE table_name = '{{ information_schema_data[2] }}' 
                     AND table_schema  = '{{ information_schema_data[1] }}' 
                     AND table_catalog = '{{ information_schema_data[0] }}'
+                    
             {% endset %}
 
             {% if execute %}
                 {% set source_columns = run_query(column_query) | list %}
             {% endif %}
 
-            {% set chunk_columns     = [] %}
+            {% set chunk_columns = [] %}
 
             {% for source_column in source_columns %}
 
@@ -115,6 +113,6 @@
 
     {% endif %}
 
-SELECT  'TEMP_STORAGE' AS temp_column
+SELECT 'TEMP_STORAGE' AS temp_column
 
 {% endmacro %}

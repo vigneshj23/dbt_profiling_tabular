@@ -2,7 +2,7 @@
     
     -- source database validation
     {% if source_database == '' %}
-        {{ exceptions.raise_compiler_error(" `source_database` should should not be empty  ") }}
+        {{ exceptions.raise_compiler_error(" `source_database` should should not be empty ") }}
     {% elif '[' in source_database | string %}
         {{ exceptions.raise_compiler_error(" `source_database` should not be a list ") }}
     {% endif %}
@@ -14,21 +14,21 @@
 
     -- target database validation
     {% if target_database == '' %}
-        {{ exceptions.raise_compiler_error(" `target_database` should not be empty  ") }}
+        {{ exceptions.raise_compiler_error(" `target_database` should not be empty ") }}
     {% elif '[' in target_database | string %}
         {{ exceptions.raise_compiler_error(" `target_database` should not be a list ") }}
     {% endif %}
 
     -- target schema validation
     {% if target_schema == '' %}
-        {{ exceptions.raise_compiler_error(" `target_schema` should not be empty  ") }}
+        {{ exceptions.raise_compiler_error(" `target_schema` should not be empty ") }}
     {% elif '[' in target_schema | string %}
         {{ exceptions.raise_compiler_error(" `target_schema` should not be a list ") }}
     {% endif %}
 
     -- target table validation
     {% if target_table == '' %}
-        {{ exceptions.raise_compiler_error(" `target_table` should not be empty  ") }}
+        {{ exceptions.raise_compiler_error(" `target_table` should not be empty ") }}
     {% elif '[' in target_table | string %}
         {{ exceptions.raise_compiler_error(" `target_table` should not be a list ") }}
     {% endif %}

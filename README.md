@@ -61,12 +61,12 @@ For the mutiple database handling use dbt model method,
 ```sql
 
 {{ data_profiler.data_profiling(target_database = '<target database>'
-                                        , target_schema = '<target schema>'
-                                        , target_table = '<taregt table>'
-                                        , source_database = '<source database>'
-                                        , source_schema = ['<source schema 1>', '<source schema 2>'...]
-                                        , exclude_tables = ['<exclude table 1>', '<exclude table 2>'...]
-                                        , include_tables = ['<include table 1>', '<include table 2>'...]) }}
+                                  , target_schema = '<target schema>'
+                                  , target_table = '<taregt table>'
+                                  , source_database = '<source database>'
+                                  , source_schema = ['<source schema 1>', '<source schema 2>'...]
+                                  , exclude_tables = ['<exclude table 1>', '<exclude table 2>'...]
+                                  , include_tables = ['<include table 1>', '<include table 2>'...]) }}
 
 ```
 

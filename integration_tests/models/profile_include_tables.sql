@@ -1,7 +1,7 @@
 -- Pass one or many include_tables in the parameter.It will profile only the tables mentioned in the parameter.
 
 
-{{ dbt_profiling_tabular.data_profiling(target_database='profiling_test'
+{{ data_profiler.data_profiling(target_database='profiling_test'
                                         , target_schema='profiling'
                                         , target_table='data_profile_include_table'
                                         , source_database='profiling_test'

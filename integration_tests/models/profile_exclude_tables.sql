@@ -1,6 +1,6 @@
 -- Pass one or many exclude_tables in the parameter.It will profile all the tables except the exclude tables.
 
-{{ dbt_profiling_tabular.data_profiling(target_database='profiling_test'
+{{ data_profiler.data_profiling(target_database='profiling_test'
                                         , target_schema='profiling'
                                         , target_table='data_profile_exclude_table'
                                         , source_database='profiling_test'

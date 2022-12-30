@@ -3,11 +3,11 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 {% macro data_profiling(target_database, target_schema, target_table, source_database, source_schema=[], exclude_tables=[], include_tables=[]) %}
  
-    {{ dbt_profiling_tabular.variable_validator(target_database, target_schema, target_table, source_database, source_schema, exclude_tables, include_tables) }}
+    {{ data_profiler.variable_validator(target_database, target_schema, target_table, source_database, source_schema, exclude_tables, include_tables) }}
     
     {% if (flags.WHICH).upper() == 'RUN' or (flags.WHICH).upper() == 'RUN-OPERATION' %}
 
-        {% set profiled_at = dbt_profiling_tabular.create_query(target_database, target_schema, target_table) %}
+        {% set profiled_at = data_profiler.create_query(target_database, target_schema, target_table) %}
 
         -- Read the table names from information schema for that particular layer
         {% set read_information_schema_datas %}
@@ -78,7 +78,7 @@
                             INSERT INTO {{ target_database }}.{{ target_schema }}.{{ target_table }} 
                             (
                             {% for chunk_column in chunk_columns %}
-                                {{ dbt_profiling_tabular.do_data_profiling(information_schema_data, source_table_name, chunk_column, profiled_at) }}
+                                {{ data_profiler.do_data_profiling(information_schema_data, source_table_name, chunk_column, profiled_at) }}
                                 {% if not loop.last %} UNION ALL {% endif %}
                             {% endfor %}
                             )
@@ -99,7 +99,7 @@
                     INSERT INTO {{ target_database }}.{{ target_schema }}.{{ target_table }} 
                     (
                     {% for chunk_column in chunk_columns %}
-                        {{ dbt_profiling_tabular.do_data_profiling(information_schema_data, source_table_name, chunk_column, profiled_at) }}
+                        {{ data_profiler.do_data_profiling(information_schema_data, source_table_name, chunk_column, profiled_at) }}
                         {% if not loop.last %} UNION ALL {% endif %}
                     {% endfor %}
                     )

@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 {% macro create_query(target_database, target_schema, target_table) -%}
 
-  {{ return(adapter.dispatch('create_query', 'dbt_profiling_tabular')(target_database, target_schema, target_table)) }}
+  {{ return(adapter.dispatch('create_query', 'data_profiler')(target_database, target_schema, target_table)) }}
   
 {%- endmacro %}
 

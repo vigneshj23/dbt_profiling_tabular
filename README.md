@@ -23,23 +23,6 @@ For each column in a relation, a calculated profile includes the following measu
 * `avg`: Average column value
 * `profiled_at`: Date and time (UTC time zone) of the profiling 
 
-## Purpose 
-
-`data_profiler` aims to provide
-
-1. [data_profiler](#profiling) macro for generating profiling SQL queries that can be used as dbt models or ad-hoc queries
-2. Describe a mechanism to include model profiles in [dbt docs](https://docs.getdbt.com/docs/building-a-dbt-project/documentation)
-
-## Installation
- dbt version required: >=1.1.0.
-
- Include the following in your packages.yml file:
-```sql
-packages:
-  - git:https://github.com/vigneshj23/dbt_profiling_tabular.git
-    revision: v2.1.3
-```
-
 ## Supported adapters
 
 ✅ Snowflake
@@ -66,14 +49,14 @@ Use this run operation command,
 
 ```sql
 
-dbt run-operation dbt_profiling_tabular.data_profiling --args "{target_database: <target datbase>, target_schema: <target schema>, target_table: <target table>, source_database: <source database>, source_schema: [<source schema 1>,<source schema 2>...], exclude_tables: [<exclude table 1>,<exclude table 2>...], include_tables: [<include table 1>,<include table 2>...]}" --target <target name>
+dbt run-operation data_profiler.data_profiling --args "{target_database: <target datbase>, target_schema: <target schema>, target_table: <target table>, source_database: <source database>, source_schema: [<source schema 1>,<source schema 2>...], exclude_tables: [<exclude table 1>,<exclude table 2>...], include_tables: [<include table 1>,<include table 2>...]}" --target <target name>
 
 ```
 For the dbt model method use this, 
 
 ```sql
 
-{{ dbt_profiling_tabular.data_profiling(target_database='<target database>'
+{{ data_profiler.data_profiling(target_database='<target database>'
                                         , target_schema='<target schema>'
                                         , target_table='<taregt table>'
                                         , source_database='<source database>'
@@ -105,7 +88,6 @@ OR
 
 ### Sample Output
 
-```
 |    DATABASE           | SCHEMA | TABLE_NAME | COLUMN_NAME         | DATA_TYPE | ROW_COUNT | NOT_NULL_COUNT | NULL_COUNT | NOT_NULL_PERCENTAGE| NULL_PERCENTAGE | DISTINCT_COUNT | DISTINCT_PERCENT |IS_UNIQUE | MIN      | MAX 	|    AVG 	   |      PROFILED_AT 		|
 | ----------------------| -------| -----------|-------------------- | ----------|---------- | -------------- | ---------  | ------------------ | --------------- | -------------- | -----------------| -------- | ---------|------------|------------------|--------------------------- |
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_ORDERKEY          | NUMBER    |1500000    |1500000         |	0	  | 100.00     	       |0.00		 |1500000         |100.00	     |TRUE	|1         |6000000     |2999991.50        |2022-12-06T09:05:18.183Z	|
@@ -117,5 +99,3 @@ OR
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_CLERK             | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |1000		  |0.07   	     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_SHIPPRIORITY      | NUMBER	|1500000    |1500000         |	0         | 100.00             |0.00		 |1		  |0.00		     |FALSE	|0         |0           |0.00              |2022-12-06T09:05:18.183Z	|
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_COMMENT           | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |1482071         |98.80	     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
-
-```

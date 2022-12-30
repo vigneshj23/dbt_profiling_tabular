@@ -22,19 +22,19 @@
 
         , COUNT(DISTINCT {{ chunk_column[0] }})=CAST(COUNT(*) AS NUMERIC)                                                                                                                        AS IS_UNIQUE
         
-        , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) or dbt_profiling_tabular.is_date_or_time_dtype((chunk_column[1]).lower()) %}
+        , {% if data_profiler.is_numeric_dtype((chunk_column[1]).lower()) or data_profiler.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MIN({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
         {% else %}
             NULL
         {% endif %}    AS min
 
-        , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) or dbt_profiling_tabular.is_date_or_time_dtype((chunk_column[1]).lower()) %}
+        , {% if data_profiler.is_numeric_dtype((chunk_column[1]).lower()) or data_profiler.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MAX({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
         {% else %}
             NULL
         {% endif %}    AS max
 
-        , {% if dbt_profiling_tabular.is_numeric_dtype((chunk_column[1]).lower()) %}
+        , {% if data_profiler.is_numeric_dtype((chunk_column[1]).lower()) %}
             ROUND(AVG(CAST({{ adapter.quote(chunk_column[0]) }} AS NUMERIC)), 2)
         {% else %}
             CAST(NULL AS NUMERIC)

@@ -51,7 +51,7 @@ Single database handling use the following run-operation command,
 
 ```sql
 
-dbt run-operation data_profiler.data_profiling --args "{target_database: <target datbase>, target_schema: <target schema>, target_table: <target table>, source_database: <source database>, source_schema: [<source schema 1>,<source schema 2>...], exclude_tables: [<exclude table 1>,<exclude table 2>...], include_tables: [<include table 1>,<include table 2>...]}" --target <target name>
+dbt run-operation data_profiler.data_profiling --args "{target_database: <target datbase>, target_schema: <target schema>, target_table: <target table>, source_database: <source database>, source_schema: [<source schema 1>, <source schema 2>...], exclude_tables: [<exclude table 1>, <exclude table 2>...], include_tables: [<include table 1>, <include table 2>...]}" --target <target name>
 
 ```
 
@@ -60,13 +60,13 @@ For the mutiple database handling use dbt model method,
 
 ```sql
 
-{{ data_profiler.data_profiling(target_database='<target database>'
-                                        , target_schema='<target schema>'
-                                        , target_table='<taregt table>'
-                                        , source_database='<source database>'
-                                        , source_schema=['<source schema 1>','<source schema 2>'...]
-                                        , exclude_tables=['<exclude table 1>','<exclude table 2>'...]
-                                        , include_tables: ['<include table 1>','<include table 2>'...]) }}
+{{ data_profiler.data_profiling(target_database = '<target database>'
+                                        , target_schema = '<target schema>'
+                                        , target_table = '<taregt table>'
+                                        , source_database = '<source database>'
+                                        , source_schema = ['<source schema 1>', '<source schema 2>'...]
+                                        , exclude_tables = ['<exclude table 1>', '<exclude table 2>'...]
+                                        , include_tables = ['<include table 1>', '<include table 2>'...]) }}
 
 ```
 
@@ -98,10 +98,10 @@ OR
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_ORDERKEY          | NUMBER    |1500000    |1500000         |	0	  | 100.00     	       |0.00		 |1500000         |100.00	     |TRUE	|1         |6000000     |2999991.50        |2022-12-06T09:05:18.183Z	|
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_CUSTKEY           | NUMBER	|1500000    |1500000         |	0         | 100.00     	       |0.00		 |99996		  |6.67		     |FALSE	|1    	   |149999      |75006.04          |2022-12-06T09:05:18.183Z	|
 |SNOWFLAKE_SAMPLE_DATA  |TPCH_SF1| ORDERS     | O_ORDERSTATUS       | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |3               |0.00		     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
-|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF2| CUSTOMERS     | O_TOTALPRICE        | NUMBER	|1500000    |1500000	     |	0         | 100.00             |0.00		 |1464556	  |97.64 	     |FALSE	|857.71    |555285.16   |151219.54         |2022-12-06T09:05:18.183Z	|
-|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF2| CUSTOMERS     | O_ORDERDATE         | DATE	|1500000    |1500000         |	0         | 100.00             |0.00		 |2406		  |0.16		     |FALSE	|1992-01-01|1998-08-02  |null              |2022-12-06T09:05:18.183Z	|
-|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF2| CUSTOMERS     | O_ORDERPRIORITY     | VARCHAR	|1500000    |1500000         |	0         | 100.00	       |0.00		 |5     	  |0.00		     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
-|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF3| DELIVERY     | O_CLERK             | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |1000		  |0.07   	     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
-|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF3| DELIVERY     | O_SHIPPRIORITY      | NUMBER	|1500000    |1500000         |	0         | 100.00             |0.00		 |1		  |0.00		     |FALSE	|0         |0           |0.00              |2022-12-06T09:05:18.183Z	|
-|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF3| DELIVERY     | O_COMMENT           | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |1482071         |98.80	     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
+|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF2| CUSTOMERS  | O_TOTALPRICE        | NUMBER	|1500000    |1500000	     |	0         | 100.00             |0.00		 |1464556	  |97.64 	     |FALSE	|857.71    |555285.16   |151219.54         |2022-12-06T09:05:18.183Z	|
+|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF2| CUSTOMERS  | O_ORDERDATE         | DATE	|1500000    |1500000         |	0         | 100.00             |0.00		 |2406		  |0.16		     |FALSE	|1992-01-01|1998-08-02  |null              |2022-12-06T09:05:18.183Z	|
+|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF2| CUSTOMERS  | O_ORDERPRIORITY     | VARCHAR	|1500000    |1500000         |	0         | 100.00	       |0.00		 |5     	  |0.00		     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
+|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF3| DELIVERY   | O_CLERK             | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |1000		  |0.07   	     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
+|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF3| DELIVERY   | O_SHIPPRIORITY      | NUMBER	|1500000    |1500000         |	0         | 100.00             |0.00		 |1		  |0.00		     |FALSE	|0         |0           |0.00              |2022-12-06T09:05:18.183Z	|
+|SNOWFLAKE_SAMPLE_DATA  |TPCH_SF3| DELIVERY   | O_COMMENT           | VARCHAR	|1500000    |1500000         |	0         | 100.00             |0.00		 |1482071         |98.80	     |FALSE	|null      |null        |null              |2022-12-06T09:05:18.183Z	|
 ```

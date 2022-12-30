@@ -29,23 +29,25 @@
 
     {% set create_table %}
         CREATE TABLE IF NOT EXISTS {{ target_database }}.{{ target_schema }}.{{ target_table }} (
+
             database                    VARCHAR(100)     comment 'Database name'
             , schema                    VARCHAR(100)     comment 'Schema name'
             , table_name                VARCHAR(100)     comment 'Name of the table'
             , column_name               VARCHAR(500)     comment 'Name of the column'
             , data_type                 VARCHAR(100)     comment 'Data type of the column'
-            , row_count                 NUMBER(38,0)     comment 'Column based row count'
-            , not_null_count            NUMBER(38,0)     comment 'Count of the not_null values based on columns'
-            , not_null_percentage       NUMBER(38,2)     comment 'Percentage of column values that are not NULL (e.g., 0.62 means that 62% of the values are populated while 38% are NULL)'
-            , null_count                NUMBER(38,0)     comment 'Count of the null values based on columns'
-            , null_percentage           NUMBER(38,2)     comment 'Percentage of column values that are NOT_NULL (e.g., 0.55 means that 55% of the values are populated while 45% are NOT_NULL)'
-            , distinct_count            NUMBER(38,0)     comment 'Count of unique column values in the column'
-            , distinct_percentage       NUMBER(38,2)     comment 'Percentage of unique column values (e.g., 1 means that 100% of the values are unique)'
+            , row_count                 NUMBER(38, 0)    comment 'Column based row count'
+            , not_null_count            NUMBER(38, 0)    comment 'Count of the not_null values based on columns'
+            , not_null_percentage       NUMBER(38, 2)    comment 'Percentage of column values that are not NULL (e.g., 0.62 means that 62% of the values are populated while 38% are NULL)'
+            , null_count                NUMBER(38, 0)    comment 'Count of the null values based on columns'
+            , null_percentage           NUMBER(38, 2)    comment 'Percentage of column values that are NOT_NULL (e.g., 0.55 means that 55% of the values are populated while 45% are NOT_NULL)'
+            , distinct_count            NUMBER(38, 0)    comment 'Count of unique column values in the column'
+            , distinct_percentage       NUMBER(38, 2)    comment 'Percentage of unique column values (e.g., 1 means that 100% of the values are unique)'
             , is_unique                 BOOLEAN          comment 'True if all column values are unique'
             , min                       VARCHAR(250)     comment 'Minimum column value'
             , max                       VARCHAR(250)     comment 'Maximum column value'
-            , avg                       NUMBER(38,2)     comment 'Average column value'
+            , avg                       NUMBER(38, 2)    comment 'Average column value'
             , profiled_at               TIMESTAMP_NTZ(9) comment 'Date and time (UTC time zone) of the profiling'
+
         )
     {% endset %}
 
@@ -77,22 +79,23 @@
 
     {% set create_table %}
         CREATE TABLE IF NOT EXISTS {{ target_database }}.{{ target_schema }}.{{ target_table }} (
+
             database                    VARCHAR(100)
             , schema                    VARCHAR(100)
             , table_name                VARCHAR(100)
             , column_name               VARCHAR(500)
             , data_type                 VARCHAR(100)
-            , row_count                 NUMERIC(38,0)
-            , not_null_count            NUMERIC(38,0)
-            , not_null_percentage       NUMERIC(38,2)
-            , null_count                NUMERIC(38,0)
-            , null_percentage           NUMERIC(38,2)
-            , distinct_count            NUMERIC(38,0)
-            , distinct_percentage       NUMERIC(38,2)
+            , row_count                 NUMERIC(38 ,0)
+            , not_null_count            NUMERIC(38 ,0)
+            , not_null_percentage       NUMERIC(38 ,2)
+            , null_count                NUMERIC(38 ,0)
+            , null_percentage           NUMERIC(38 ,2)
+            , distinct_count            NUMERIC(38 ,0)
+            , distinct_percentage       NUMERIC(38 ,2)
             , is_unique                 BOOLEAN
             , min                       VARCHAR(250)
             , max                       VARCHAR(250)
-            , avg                       NUMERIC(38,2)
+            , avg                       NUMERIC(38 ,2)
             , profiled_at               TIMESTAMPTZ(9)
         );
 

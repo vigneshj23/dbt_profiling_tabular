@@ -4,6 +4,7 @@
 {% macro do_data_profiling(information_schema_data, source_table_name, chunk_column, current_date_and_time) %}
 
     SELECT
+
         '{{ information_schema_data[0] }}'                  AS database
         , '{{ information_schema_data[1] }}'                AS schema
         , '{{ information_schema_data[2] }}'                AS table_name
@@ -11,16 +12,16 @@
         , '{{ chunk_column[1] }}'                           AS data_type
 
         , CAST(COUNT(*) AS NUMERIC)  	                                                                                                                                                         AS row_count
-        , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END)                                                     AS not_null_count
-        , ROUND(((SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 0 ELSE 1 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
+        , SUM(CASE WHEN (CASE WHEN {{ chunk_column[0] }}::VARCHAR = '' THEN NULL ELSE {{ chunk_column[0] }} END ) IS NULL THEN 0 ELSE 1 END)                                                     AS not_null_count
+        , ROUND(((SUM(CASE WHEN (CASE WHEN {{ chunk_column[0] }}::VARCHAR = '' THEN NULL ELSE {{ chunk_column[0] }} END ) IS NULL THEN 0 ELSE 1 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS not_null_percentage
 
-        , SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END)                                                     AS null_count
-        , ROUND(((SUM(CASE WHEN (case when {{ chunk_column[0] }}::VARCHAR = '' then NULL else {{ chunk_column[0] }} end ) IS NULL THEN 1 ELSE 0 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS null_percentage
+        , SUM(CASE WHEN (CASE WHEN {{ chunk_column[0] }}::VARCHAR = '' THEN NULL ELSE {{ chunk_column[0] }} END ) IS NULL THEN 1 ELSE 0 END)                                                     AS null_count
+        , ROUND(((SUM(CASE WHEN (CASE WHEN {{ chunk_column[0] }}::VARCHAR = '' THEN NULL ELSE {{ chunk_column[0] }} END ) IS NULL THEN 1 ELSE 0 END)) / CAST(COUNT(*) AS NUMERIC)) * 100, 2)     AS null_percentage
 
         , COUNT(DISTINCT {{ chunk_column[0] }})	                                                                                                                                                 AS distinct_count
-        , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100,2)                                                                                                         AS distinct_count_percentage
+        , ROUND(COUNT(DISTINCT {{ chunk_column[0] }})/CAST(COUNT(*) AS NUMERIC) * 100, 2)                                                                                                         AS distinct_count_percentage
 
-        , COUNT(DISTINCT {{ chunk_column[0] }})=CAST(COUNT(*) AS NUMERIC)                                                                                                                        AS IS_UNIQUE
+        , COUNT(DISTINCT {{ chunk_column[0] }}) = CAST(COUNT(*) AS NUMERIC)                                                                                                                        AS IS_UNIQUE
         
         , {% if data_profiler.is_numeric_dtype((chunk_column[1]).lower()) or data_profiler.is_date_or_time_dtype((chunk_column[1]).lower()) %}
             CAST(MIN({{ adapter.quote(chunk_column[0]) }}) AS VARCHAR)
@@ -41,6 +42,7 @@
         {% endif %}    AS avg
 
         , CAST('{{current_date_and_time}}' AS timestamp)        AS profiled_at
+
     FROM {{ source_table_name }}
 
 {% endmacro %}
@@ -51,7 +53,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 {% macro is_numeric_dtype(dtype) %}
 
-    {% set is_numeric = dtype.startswith("int") or dtype.startswith("float") or "numeric" in dtype or "NUMERIC" in dtype or "double" in dtype or "NUMBER" in dtype or "number" in dtype%}
+    {% set is_numeric = dtype.startswith("int") or dtype.startswith("float") or "numeric" in dtype or "NUMERIC" in dtype or "double" in dtype or "NUMBER" in dtype or "number" in dtype %}
 
     {% do return(is_numeric) %}
 

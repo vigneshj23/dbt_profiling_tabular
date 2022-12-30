@@ -21,11 +21,11 @@
             FROM {{source_database}}.INFORMATION_SCHEMA.TABLES
             WHERE
                 {% if source_schema | length == 0 %}
-                    LOWER(table_schema) NOT IN ('information_schema','pg_catalog')
+                    LOWER(table_schema) NOT IN ('information_schema', 'pg_catalog')
 
                 {% else %}
                     LOWER(table_schema) IN ( 
-                        {%- for profiling_schema in source_schema -%} '{{ profiling_schema.lower()}}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
+                        {%- for profiling_schema in source_schema -%} '{{ profiling_schema.lower() }}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )
                 {% endif %}
 
                 {% if exclude_tables | length != 0 %}
@@ -55,15 +55,15 @@
                     column_name
                     , data_type
 
-                FROM {{source_database}}.information_schema.columns
+                FROM {{ source_database }}.information_schema.columns
 
-                WHERE table_name = '{{information_schema_data[2]}}' 
-                    AND table_schema  = '{{information_schema_data[1]}}' 
-                    AND table_catalog = '{{information_schema_data[0]}}'
+                WHERE table_name = '{{ information_schema_data[2] }}' 
+                    AND table_schema  = '{{ information_schema_data[1] }}' 
+                    AND table_catalog = '{{ information_schema_data[0] }}'
             {% endset %}
 
             {% if execute %}
-                {% set source_columns = run_query(column_query)| list %}
+                {% set source_columns = run_query(column_query) | list %}
             {% endif %}
 
             {% set chunk_columns     = [] %}

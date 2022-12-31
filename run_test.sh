@@ -1,5 +1,5 @@
 cd integration_tests
-echo "$ENV_FILE" | base64 --decode > .env
+echo "$ENV_FILE" > .env
 python profiles_yml_creator.py
 cat profiles.yml
 dbt debug --target $1

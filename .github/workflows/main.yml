@@ -4,6 +4,7 @@ on:
     
 jobs:
   container-jobs:
+    name: integration -postgres
     runs-on: ubuntu-latest
     services:
       postgres:

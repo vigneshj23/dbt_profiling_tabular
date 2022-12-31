@@ -1,5 +1,5 @@
 cd integration_tests
-echo $ENV_FILE| sed 's/ /\n/g' > .env
+# echo $ENV_FILE| sed 's/ /\n/g' > .env
 python profiles_yml_creator.py
 dbt debug --target $1
 dbt deps --target $1

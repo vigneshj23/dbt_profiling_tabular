@@ -6,12 +6,13 @@ on:
     types: [opened, reopened]
     
 jobs:
-  container-jobs:
+  test:
     name: integration -postgres
     runs-on: ubuntu-latest
+    
     services:
       postgres:
-        image: postgres
+        image: postgres:12
         env:
           POSTGRES_USER: root
           POSTGRES_DB: profiling_test

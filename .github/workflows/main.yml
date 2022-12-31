@@ -36,8 +36,6 @@ jobs:
         run: cd integration_tests
       - name: 'Create env file'
         run: |
-          touch .env
-          echo ${{ secrets.ENV_FILE }} >> .env
-          cat .env
+          echo "${{ secrets.ENV_FILE }}" > .env
       - name: "Run OG Tests - postgres"
         run: ./run_test.sh postgres

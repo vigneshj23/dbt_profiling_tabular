@@ -1,0 +1,38 @@
+on:
+  pull_request:
+    types: [opened, reopened]
+    
+jobs:
+  container-jobs:
+    name: integration -postgres
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_DB: profiling_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: dependency installation
+        run: pip install --pre dbt-postgres -r requirements.txt
+      - name: permission given
+        run: chmod u+x run_test.sh
+      - name: change into test dictoratory
+        run: cd integration_tests
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo ${{ secrets.ENV_FILE }} >> .env
+          cat .env
+      - name: "Run OG Tests - postgres"
+        run: ./run_test.sh postgres

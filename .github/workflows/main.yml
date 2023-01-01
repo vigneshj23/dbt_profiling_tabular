@@ -6,7 +6,8 @@ on:
     types: [opened, reopened]
     
 jobs:
-  integration -postgres:
+  test:
+    name: integration -postgres
     runs-on: ubuntu-latest
     
     services:
@@ -30,16 +31,8 @@ jobs:
         with:
           python-version: 3.9
       - name: dependency installation
-        run: pip install --pre dbt-postgres -r requirements.txt
+        run: pip install -r requirements.txt
       - name: permission given
         run: chmod u+x run_test.sh
       - name: "Run OG Tests - postgres"
-        env:
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: ./run_test.sh postgres

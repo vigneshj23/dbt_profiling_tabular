@@ -36,3 +36,19 @@ jobs:
         run: chmod u+x run_test.sh
       - name: "Run OG Tests - postgres"
         run: ./run_test.sh postgres
+  test:
+    name: integration -snowflake
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: dependency installation
+        run: pip install -r requirements.txt
+      - name: permission given
+        run: chmod u+x run_test.sh
+      - name: "Run OG Tests - snowflake"
+        run: ./run_test.sh snowflake

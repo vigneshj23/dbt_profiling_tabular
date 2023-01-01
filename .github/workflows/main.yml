@@ -6,8 +6,7 @@ on:
     types: [opened, reopened]
     
 jobs:
-  test:
-    name: integration -postgres
+  integration -postgres:
     runs-on: ubuntu-latest
     
     services:

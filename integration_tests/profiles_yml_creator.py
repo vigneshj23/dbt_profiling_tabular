@@ -13,14 +13,7 @@ data = f.read()
 f.close()
 
 data = data.replace('$', '')
-try:
-    # Writing the actual profile.yml file
-    final = open('profiles.yml', 'w', encoding='utf-8')
-    final.write(data.format(**config))
-    final.close()
-except:
-    data = data.replace('{', '${{ secrects.').replace('}', ' }}')
-    # Writing the actual profile.yml file
-    final = open('profiles.yml', 'w', encoding='utf-8')
-    final.write(data)
-    final.close()
+# Writing the actual profile.yml file
+final = open('profiles.yml', 'w', encoding='utf-8')
+final.write(data.format(**config))
+final.close()

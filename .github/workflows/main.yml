@@ -46,7 +46,7 @@ jobs:
         run: ./run_test.sh postgres
   test2:
     name: integration -snowflake
-    runs-on: test1
+    runs-on: ubuntu-latest
     needs: test1
     steps:
       - uses: actions/checkout@v2

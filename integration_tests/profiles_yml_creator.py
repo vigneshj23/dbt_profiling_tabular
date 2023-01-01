@@ -4,7 +4,6 @@ from dotenv import dotenv_values
 
 # Read the env variables
 config = dotenv_values(".env")
-config = dotenv_values(".env")
 if len(config)==0:
     config = os.environ
 

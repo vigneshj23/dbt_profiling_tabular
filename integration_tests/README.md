@@ -10,7 +10,7 @@
 - Docker
 
 ## Configure
-Edit the env file for your TARGET in `integration_tests/.env`. For the postgres, default values are `user=root`, `password=test` and `database=profiling_test`.
+Create the env file for your TARGET in `integration_tests/.env`. For the postgres, default values are `user=root`, `password=test` and `database=profiling_test`.
 
 ## Build
 

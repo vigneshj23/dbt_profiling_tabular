@@ -22,6 +22,7 @@
             WHERE
                 {% if source_schema | length == 0 %}
                     LOWER(table_schema) NOT IN ('information_schema', 'pg_catalog')
+                    AND LOWER(table_name) != '{{ target_table.lower() }}'
                 {% else %}
                     LOWER(table_schema) IN ( 
                         {%- for profiling_schema in source_schema -%} '{{ profiling_schema.lower() }}' {%- if not loop.last -%} , {% endif -%} {%- endfor -%} )

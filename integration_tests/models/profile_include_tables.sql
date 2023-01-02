@@ -1,4 +1,10 @@
 -- Pass one or many include_tables in the parameter.It will profile only the tables mentioned in the parameter.
+{{
+    config(
+        tags=["test_model"]
+    )
+}}
+
 
 {{ data_profiler.data_profiling(target_database = 'profiling_test'
                                     , target_schema = 'profiling'

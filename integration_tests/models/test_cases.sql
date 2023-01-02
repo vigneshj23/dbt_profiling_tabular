@@ -1,3 +1,9 @@
+{{
+    config(
+        tags=["test_cases"]
+    )
+}}
+
 SELECT 
 	 CASE
 		WHEN (SELECT COUNT(*) FROM profiling_test.profiling.data_profile_multi_schema) != 0 THEN 1

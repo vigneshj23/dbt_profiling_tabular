@@ -15,7 +15,7 @@ integration_tests:
         password: ${SNOWFLAKE_PASSWORD}
         role: ${SNOWFLAKE_ROLE}
         schema: ${SNOWFLAKE_SCHEMA}
-        threads: 1
+        threads: 4
         type: snowflake
         user: ${SNOWFLAKE_USER}
         warehouse: ${SNOWFLAKE_WAREHOUSE}

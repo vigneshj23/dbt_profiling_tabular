@@ -7,5 +7,5 @@ dbt debug --target $1
 dbt deps --target $1
 dbt seed --target $1 --full-refresh
 dbt run -m tag:test_model --target $1
-dbt run -m tag:test_model --target $1
+dbt run -m tag:test_cases --target $1
 dbt test --target $1
